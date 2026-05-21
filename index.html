@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>877商品知識もりもりマガジン</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <template id="__bundler_thumbnail">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <rect width="200" height="200" fill="#F5F0E6"/>
@@ -23,7 +23,10 @@
   /* Mobile: no dark frame; full-bleed magazine */
   @media (max-width: 700px) {
     html, body { background: #F5F0E6; overflow: auto; }
-    #root { background: #F5F0E6; display: block; height: auto; min-height: 100vh; }
+    #root { background: #F5F0E6; display: block; height: auto; min-height: 100vh;
+      --top-pad: max(env(safe-area-inset-top, 0px), 8px);
+      --bot-pad: max(env(safe-area-inset-bottom, 0px), 14px);
+    }
   }
   button { font-family: inherit; }
   h1, h2, h3 { font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif; }
@@ -993,7 +996,7 @@ function HomeScreen({ setView, setSelectedId, accent, setCategory, category, sea
   return (
     <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif' }}>
       {/* Status area spacer */}
-      <div style={{ height: 54 }} />
+      <div style={{ height: 'var(--top-pad, 54px)' }} />
 
       {/* Top bar - paper masthead */}
       <div style={{ padding: '8px 18px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -1357,7 +1360,7 @@ function DetailScreen({ id, setView, accent, faves, toggleFave, tweaks }) {
       {/* Sticky header */}
       <div style={{
         position: 'sticky', top: 0, zIndex: 10,
-        paddingTop: 54, background: '#F5F0E6',
+        paddingTop: 'var(--top-pad, 54px)', background: '#F5F0E6',
         borderBottom: '1px solid #1F1B16',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px' }}>
@@ -1713,7 +1716,7 @@ window.DetailScreen = DetailScreen;
 function FavesScreen({ faves, toggleFave, setView, setSelectedId, accent }) {
   const faveProducts = faves.map(id => window.PRODUCTS_DATA.find(p => p.id === id)).filter(Boolean);
   return (
-    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif', paddingTop: 54 }}>
+    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif', paddingTop: 'var(--top-pad, 54px)' }}>
       <div style={{ padding: '20px 18px 14px', borderBottom: '2px solid #1F1B16', margin: '0 18px' }}>
         <div style={{ fontSize: 11, fontFamily: 'ui-monospace, monospace', letterSpacing: 3, color: accent.main, fontWeight: 700 }}>
           BOOKMARKS
@@ -2030,7 +2033,7 @@ function ColumnPageScreen({ setView, accent, tweaks, pageId = '__about' }) {
   };
 
   return (
-    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: serif, paddingTop: 54, paddingBottom: 110 }}>
+    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: serif, paddingTop: 'var(--top-pad, 54px)', paddingBottom: 110 }}>
       {/* Masthead */}
       <div style={{ padding: '20px 18px 14px', borderBottom: '2px solid #1F1B16', margin: '0 18px', position: 'relative' }}>
         <div style={{ fontSize: 11, fontFamily: mono, letterSpacing: 3, color: accent.main, fontWeight: 700 }}>
@@ -2374,7 +2377,7 @@ function TabBar({ view, setView, accent }) {
       backdropFilter: 'blur(20px) saturate(180%)',
       WebkitBackdropFilter: 'blur(20px) saturate(180%)',
       borderTop: '1px solid #1F1B16',
-      paddingBottom: 24, paddingTop: 6,
+      paddingBottom: 'var(--bot-pad, 24px)', paddingTop: 6,
       display: 'flex', justifyContent: 'space-around',
     }}>
       {tabs.map(t => {
@@ -2845,9 +2848,17 @@ function App() {
     return () => window.removeEventListener('resize', recalc);
   }, []);
 
+  // Reset scroll on view / product change
+  const scrollRef = React.useRef(null);
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+    // Also reset window scroll for mobile (when frame is bypassed)
+    if (isMobile) window.scrollTo(0, 0);
+  }, [view, selectedId, isMobile]);
+
   const innerContent = (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, overflowY: 'auto', overflowX: 'hidden' }}>
+      <div ref={scrollRef} style={{ position: 'absolute', inset: 0, overflowY: 'auto', overflowX: 'hidden' }}>
         {view === 'home' && React.createElement(window.HomeScreen, {
           setView, setSelectedId, accent, category, setCategory, search, setSearch, tweaks,
         })}
