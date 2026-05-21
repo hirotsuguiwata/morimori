@@ -20,6 +20,11 @@
   body { font-family: "Noto Sans JP", "Hiragino Sans", sans-serif; }
   #root { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;
     background: radial-gradient(circle at 50% 30%, #3A332A 0%, #2A2620 80%); }
+  /* Mobile: no dark frame; full-bleed magazine */
+  @media (max-width: 700px) {
+    html, body { background: #F5F0E6; overflow: auto; }
+    #root { background: #F5F0E6; display: block; height: auto; min-height: 100vh; }
+  }
   button { font-family: inherit; }
   h1, h2, h3 { font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif; }
   input::placeholder { color: #A89F94; }
@@ -2819,49 +2824,64 @@ function App() {
     window.dispatchEvent(new Event('__imgPosChanged'));
   }, [tweaks.imagePositions]);
 
-  // Compute iOS frame scale
+  // Compute iOS frame scale; also detect mobile for frameless rendering
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const recalc = () => {
-      const maxH = window.innerHeight - 40;
-      const maxW = window.innerWidth - 40;
-      const s = Math.min(maxH / 874, maxW / 402, 1);
-      setScale(s);
+      const mob = window.innerWidth < 700;
+      setIsMobile(mob);
+      if (mob) {
+        setScale(1);
+      } else {
+        const maxH = window.innerHeight - 40;
+        const maxW = window.innerWidth - 40;
+        const s = Math.min(maxH / 874, maxW / 402, 1);
+        setScale(s);
+      }
     };
     recalc();
     window.addEventListener('resize', recalc);
     return () => window.removeEventListener('resize', recalc);
   }, []);
 
+  const innerContent = (
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, overflowY: 'auto', overflowX: 'hidden' }}>
+        {view === 'home' && React.createElement(window.HomeScreen, {
+          setView, setSelectedId, accent, category, setCategory, search, setSearch, tweaks,
+        })}
+        {view === 'detail' && React.createElement(window.DetailScreen, {
+          id: selectedId, setView, accent, faves, toggleFave, tweaks,
+        })}
+        {view === 'faves' && React.createElement(window.FavesScreen, {
+          faves, toggleFave, setView, setSelectedId, accent,
+        })}
+        {view === 'about' && React.createElement(window.AboutScreen, {
+          setView, accent, tweaks,
+        })}
+        {view === 'column-tshirt' && React.createElement(window.ColumnPageScreen, {
+          setView, accent, tweaks, pageId: '__tshirt',
+        })}
+        {view === 'column-tenugui' && React.createElement(window.ColumnPageScreen, {
+          setView, accent, tweaks, pageId: '__tenugui',
+        })}
+      </div>
+      <TabBar view={view} setView={setView} accent={accent} />
+    </div>
+  );
+
   return (
     <>
-      <div style={{ transform: `scale(${scale})`, transformOrigin: 'center' }}>
-        {React.createElement(window.IOSDevice, { width: 402, height: 874 },
-          <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', inset: 0, overflowY: 'auto', overflowX: 'hidden' }}>
-              {view === 'home' && React.createElement(window.HomeScreen, {
-                setView, setSelectedId, accent, category, setCategory, search, setSearch, tweaks,
-              })}
-              {view === 'detail' && React.createElement(window.DetailScreen, {
-                id: selectedId, setView, accent, faves, toggleFave, tweaks,
-              })}
-              {view === 'faves' && React.createElement(window.FavesScreen, {
-                faves, toggleFave, setView, setSelectedId, accent,
-              })}
-              {view === 'about' && React.createElement(window.AboutScreen, {
-                setView, accent, tweaks,
-              })}
-              {view === 'column-tshirt' && React.createElement(window.ColumnPageScreen, {
-                setView, accent, tweaks, pageId: '__tshirt',
-              })}
-              {view === 'column-tenugui' && React.createElement(window.ColumnPageScreen, {
-                setView, accent, tweaks, pageId: '__tenugui',
-              })}
-            </div>
-            <TabBar view={view} setView={setView} accent={accent} />
-          </div>
-        )}
-      </div>
+      {isMobile ? (
+        <div style={{ position: 'fixed', inset: 0, background: '#F5F0E6' }}>
+          {innerContent}
+        </div>
+      ) : (
+        <div style={{ transform: `scale(${scale})`, transformOrigin: 'center' }}>
+          {React.createElement(window.IOSDevice, { width: 402, height: 874 }, innerContent)}
+        </div>
+      )}
       {tweaksOpen && <TweaksPanel tweaks={tweaks} setTweaks={updateTweaks} view={view} selectedId={selectedId} setSelectedId={setSelectedId} setView={setView} />}
     </>
   );
