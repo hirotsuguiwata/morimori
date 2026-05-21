@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>画像割り当て — 877マガジン</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 0; background: #1a1a1a; color: #eee;
+    font-family: -apple-system, "Hiragino Sans", sans-serif; }
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: #0a0a0a; border-bottom: 1px solid #333;
+    padding: 14px 24px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  }
+  h1 { font-size: 14px; margin: 0; letter-spacing: 1.5px; font-weight: 600; }
+  .sub { font-size: 11px; color: #888; }
+  .actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+  button, select, input {
+    font-family: inherit; font-size: 12px;
+    background: #2a2a2a; color: #eee;
+    border: 1px solid #444; border-radius: 4px;
+    padding: 6px 10px; cursor: pointer;
+  }
+  button.primary { background: #6B5B9E; border-color: #6B5B9E; font-weight: 600; }
+  button.primary:hover { background: #5A4D86; }
+  button.ghost { background: transparent; }
+  .count { font-size: 11px; color: #aaa; padding: 4px 10px; background: #2a2a2a; border-radius: 4px; }
+  main { padding: 20px 24px 80px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .cell {
+    background: #2a2a2a; border-radius: 8px; overflow: hidden;
+    display: flex; flex-direction: column;
+    border: 2px solid transparent; transition: border-color 0.15s;
+  }
+  .cell.assigned { border-color: #6B5B9E; }
+  .cell.assigned-extra { border-color: #4A6B4F; }
+  .img-wrap {
+    position: relative; background: #0a0a0a;
+    aspect-ratio: 4/3; overflow: hidden;
+  }
+  .img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .badge {
+    position: absolute; top: 6px; left: 6px;
+    background: rgba(0,0,0,0.7); color: #eee;
+    padding: 3px 7px; font-size: 9px; font-family: monospace;
+    letter-spacing: 1px; border-radius: 3px; font-weight: 700;
+  }
+  .primary-badge {
+    position: absolute; top: 6px; right: 6px;
+    background: #6B5B9E; color: #fff;
+    padding: 3px 7px; font-size: 9px; font-weight: 700;
+    letter-spacing: 1px; border-radius: 3px;
+  }
+  .extra-badge { background: #4A6B4F; }
+  .meta { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
+  .row1 {
+    font-size: 10px; font-family: monospace; color: #aaa;
+    display: flex; justify-content: space-between;
+  }
+  select.assign {
+    width: 100%; font-size: 11px; padding: 5px 6px;
+  }
+  .slot-row { display: flex; gap: 4px; align-items: center; }
+  .slot-row select { flex: 1; }
+  .slot-btn {
+    padding: 4px 6px; font-size: 10px;
+    background: #333; border-color: #555;
+    min-width: 38px;
+  }
+  .slot-btn.active { background: #6B5B9E; border-color: #6B5B9E; }
+  .help {
+    font-size: 11px; color: #999; line-height: 1.6;
+    margin: 8px 0 14px;
+  }
+  kbd {
+    font-family: monospace; background: #333; padding: 1px 5px;
+    border-radius: 3px; border: 1px solid #555; font-size: 10px;
+  }
+  .saved-flash {
+    color: #8ED58E; font-size: 11px; opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .saved-flash.show { opacity: 1; }
+  .filter { display: flex; gap: 6px; }
+  .filter button {
+    font-size: 11px; padding: 5px 10px;
+  }
+  .filter button.active { background: #6B5B9E; border-color: #6B5B9E; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>画像割り当て</h1>
+    <div class="sub">PDFから抽出した画像を商品に紐付け</div>
+  </div>
+  <div class="filter">
+    <button data-f="all" class="active">すべて</button>
+    <button data-f="unassigned">未割当のみ</button>
+    <button data-f="assigned">割当済みのみ</button>
+  </div>
+  <div class="actions">
+    <span class="count" id="count">—</span>
+    <span class="saved-flash" id="saved">✓ 保存</span>
+    <button class="ghost" id="clear">全リセット</button>
+    <button class="primary" id="openApp">マガジンを開く →</button>
+  </div>
+</header>
+
+<main>
+  <div class="help">
+    各画像に商品を割り当てると自動保存されます。<br/>
+    同じ商品を複数の画像に割り当てると、詳細ページでスライド表示されます（最初に選んだものがメイン）。<br/>
+    <kbd>P</kbd> バッジ = メイン画像、<kbd>+</kbd> バッジ = 追加画像。
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<script>
+// Load data.js via fetch (auth token attached) since <script src> bypasses ?t= param
+(async () => {
+  const token = new URLSearchParams(location.search).get('t');
+  const q = token ? '?t=' + token : '';
+  const r = await fetch('data.js' + q);
+  const code = await r.text();
+  // data.js sets window.PRODUCTS_DATA, so eval it
+  (0, eval)(code);
+  initGallery();
+})();
+
+function initGallery() {
+const files = [
+'01_626x626','02_355x266','03_355x266','04_355x266','05_1500x1125',
+'06_2048x1365','07_1448x1916','08_2048x1365','09_2048x1365','10_1965x2048',
+'11_1190x1144','12_2048x1365','13_1608x1534','14_1280x1920','15_1280x1920',
+'16_1280x1920','17_1365x2048','18_1365x2048','19_2048x1365','20_1179x779',
+'21_750x310','22_2048x1536','23_2048x1365','24_1179x1462','25_1500x1525',
+'26_1365x2048','27_1365x2048','28_1365x2048','29_614x536','30_812x792',
+'31_1920x1280','32_902x682','33_1210x804','34_682x1020','35_1920x1280',
+'36_712x906','37_1018x878','38_1200x800','39_1200x800','40_284x776',
+'41_252x758','42_888x784','43_1920x1280','44_2048x1365','45_1179x1320',
+'46_848x786','47_1200x900','48_1179x1465','49_1179x1453'
+];
+
+const products = window.PRODUCTS_DATA || [];
+// Virtual "products" for special pages (home hero, about column, etc)
+const specialPages = [
+  { id: '__home',    name: '◆ ホーム ヒーロー画像' },
+  { id: '__about',   name: '◆ 877の商品について (コラム)' },
+  { id: '__tshirt',  name: '◆ Tシャツについて (コラム)' },
+  { id: '__tenugui', name: '◆ 手ぬぐいについて (コラム)' },
+];
+const token = new URLSearchParams(location.search).get('t');
+const q = token ? '?t=' + token : '';
+
+const STORAGE_KEY = '877-image-assignments';
+
+// Load saved assignments: { 'p01': 'product-id', ... }
+// Each image maps to AT MOST one product. A product can have multiple images.
+function loadAssignments() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch { return {}; }
+}
+function saveAssignments(a) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(a));
+  flashSaved();
+}
+function flashSaved() {
+  const el = document.getElementById('saved');
+  el.classList.add('show');
+  clearTimeout(flashSaved._t);
+  flashSaved._t = setTimeout(() => el.classList.remove('show'), 900);
+}
+
+let assignments = loadAssignments();
+let filter = 'all';
+
+function orderedImagesForProduct(productId) {
+  // In the order they appear in the assignments (= insertion/click order),
+  // collect all image keys mapped to this product.
+  return Object.keys(assignments).filter(k => assignments[k] === productId);
+}
+
+function assignImage(imgKey, productId) {
+  if (!productId) {
+    delete assignments[imgKey];
+  } else {
+    assignments[imgKey] = productId;
+  }
+  saveAssignments(assignments);
+  render();
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  let assignedCount = 0;
+  let shown = 0;
+  files.forEach(f => {
+    const [num, dim] = f.split('_');
+    const key = 'p' + num;
+    const assignedTo = assignments[key];
+    if (assignedTo) assignedCount++;
+
+    // Apply filter
+    if (filter === 'unassigned' && assignedTo) return;
+    if (filter === 'assigned' && !assignedTo) return;
+    shown++;
+
+    // Determine position within that product's image list
+    let position = null;
+    if (assignedTo) {
+      const list = orderedImagesForProduct(assignedTo);
+      position = list.indexOf(key); // 0 = main
+    }
+
+    const cell = document.createElement('div');
+    cell.className = 'cell' + (assignedTo ? (position === 0 ? ' assigned' : ' assigned-extra') : '');
+
+    const imgHTML = `<div class="img-wrap">
+      <img src="pdf-images/${f}.jpg${q}" loading="lazy">
+      <div class="badge">#${num} ${dim}</div>
+      ${position === 0 ? '<div class="primary-badge">P</div>' : ''}
+      ${position > 0 ? `<div class="primary-badge extra-badge">+${position}</div>` : ''}
+    </div>`;
+
+    const optsHTML = products.map(p => {
+      const count = orderedImagesForProduct(p.id).length;
+      return `<option value="${p.id}" ${p.id === assignedTo ? 'selected' : ''}>${p.name}${count > 0 ? ` (${count})` : ''}</option>`;
+    }).join('');
+    const specialOptsHTML = specialPages.map(p => {
+      const count = orderedImagesForProduct(p.id).length;
+      return `<option value="${p.id}" ${p.id === assignedTo ? 'selected' : ''}>${p.name}${count > 0 ? ` (${count})` : ''}</option>`;
+    }).join('');
+
+    cell.innerHTML = `${imgHTML}
+      <div class="meta">
+        <select class="assign" data-key="${key}">
+          <option value="">— 未割当 —</option>
+          ${specialOptsHTML}
+          <option value="" disabled>──────────</option>
+          ${optsHTML}
+        </select>
+      </div>`;
+
+    grid.appendChild(cell);
+  });
+
+  document.getElementById('count').textContent = `${assignedCount}/${files.length} 割当済 · 表示${shown}`;
+
+  grid.querySelectorAll('select.assign').forEach(sel => {
+    sel.addEventListener('change', e => {
+      assignImage(e.target.dataset.key, e.target.value);
+    });
+  });
+}
+
+document.querySelectorAll('.filter button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.filter button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    filter = b.dataset.f;
+    render();
+  });
+});
+
+document.getElementById('clear').addEventListener('click', () => {
+  if (confirm('全割当をリセットしますか？')) {
+    assignments = {};
+    saveAssignments(assignments);
+    render();
+  }
+});
+
+document.getElementById('openApp').addEventListener('click', () => {
+  location.href = '877Magazine.html' + location.search;
+});
+
+render();
+} // end initGallery
+</script>
+</body>
+</html>

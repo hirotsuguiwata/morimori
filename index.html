@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>877商品知識もりもりマガジン</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#F5F0E6"/>
+  <text x="100" y="92" text-anchor="middle" font-family="serif" font-size="38" font-weight="700" fill="#6B5B9E">877</text>
+  <text x="100" y="125" text-anchor="middle" font-family="serif" font-size="13" font-weight="700" fill="#1F1B16">もりもりマガジン</text>
+</svg>
+</template>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #2A2620; overflow: hidden; height: 100vh; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: "Noto Sans JP", "Hiragino Sans", sans-serif; }
+  #root { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 50% 30%, #3A332A 0%, #2A2620 80%); }
+  button { font-family: inherit; }
+  h1, h2, h3 { font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif; }
+  input::placeholder { color: #A89F94; }
+  /* Scrollbars hidden */
+  ::-webkit-scrollbar { width: 0; height: 0; }
+
+  /* ambient paper texture */
+  .paper-bg::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+  }
+
+  .tweak-panel { font-family: "Noto Sans JP", sans-serif; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script>
+// 877 商品データ
+window.PRODUCTS_DATA = [
+  // ─── Tシャツ ───
+  {
+    id: '877stand-tshirt', cat: 'tshirt', name: '877Stand Tシャツ',
+    price: 2600, stores: ['877Stand'], since: '2023年10月〜',
+    image: 'products/877stand-tshirt.png',
+    colors: ['ミックスパープル', 'アーミーグリーン'],
+    material: 'ポリエステル100%', body: 'グリマー',
+    desc: '2023年10月の877Standオープンと同時に登場した店舗限定Tシャツ。胸に大きく「877」とゼッケンのようにプリントされたデザインは、BASE877オープン（2021年5月）からの看板商品。',
+    story: '背中の"Everybody Stand, Stand, Stand!"は、アメリカのアーティスト「スライ＆ザ・ファミリーストーン」の楽曲「Stand!」の歌詞から。山頂手前のお店として「コーヒーを飲んだら立ち上がって山頂へ！」という応援の意味も込められています。',
+    memo: 'このTシャツを着て山に登ると、他の登山者が同じTシャツを着ていることも。そこから会話や繋がりが生まれることもあり、ゆるいコミュニティ形成にも一役買っています。',
+    tags: ['看板商品', '店舗限定', '紫峰カラー']
+  },
+  {
+    id: '877-tshirt', cat: 'tshirt', name: '877 Tシャツ',
+    price: 2600, stores: ['877'], since: '2026年2月〜',
+    image: 'products/877-tshirt.png',
+    colors: ['ミックスグレー'],
+    material: 'ポリエステル100%', body: 'グリマー',
+    desc: '877の店舗限定Tシャツ。胸に大きく「877」とゼッケンのようにプリントされた、877のアイコン的な一枚。店舗空間イメージともリンクするグレー×イエローの配色です。',
+    story: '背中（首元）には「Walk light, Think Wild.」のメッセージが入っています。「軽やかに歩き、ワイルドに思考しよう」というような意味で、登山道を歩くときならではの、頭と身体の体験になぞらえたメッセージです。',
+    tags: ['店舗限定', 'アイコン的']
+  },
+  {
+    id: 'toko-tshirt', cat: 'tshirt', name: '等高線Tシャツ',
+    price: 3200, stores: ['877Stand', '877'], since: '2024年GW〜',
+    image: 'products/toko-tshirt.png',
+    colors: ['グレイッシュピンク', 'ホワイト', 'ブラック', 'ネイビー', 'ダークグレー'],
+    material: 'ポリエステル100%', body: 'ユナイテッドアスレ',
+    desc: '前面左胸に877のミニロゴ、背中には筑波山の等高線を表した白地図をプリント。等高線をよく見ると、中央付近に女体山頂と男体山頂の2つのピーク、さらに中央左上あたりに3つ目の山頂・坊主山も確認できます。',
+    memo: '白はかなり透けるため、男女ともに1枚での着用はおすすめできません。「ベージュなどの明るいインナーだと透けも目立たずに着られます」とお伝えしましょう。',
+    staff: '2026年GW以降、ボディを全面切替予定（旧ボディがメーカー廃盤のため）。',
+    tags: ['人気シリーズ', '等高線', 'ロンTあり']
+  },
+  {
+    id: 'inuyamamyaku-tshirt', cat: 'tshirt', name: '犬山脈 Tシャツ',
+    price: 2400, stores: ['877Stand', '877'], since: '2022年秋〜',
+    image: 'products/inuyamamyaku-tshirt.png',
+    colors: ['アイビーグリーン'],
+    material: 'ポリエステル100%', body: 'ユナイテッドアスレ',
+    desc: '筑波山がなぜか犬になってしまった、ユーモラスなイラストTシャツ。もともとキントンさんが粘土で制作していた作品が可愛すぎる！ということで、筑波山バージョンのイラストを描いてもらいTシャツ化しました。',
+    story: '筑波山の「男体山」「女体山」の2つの峰にちなんで、左が「なんたい（男体）わん」、右が「にょたい（女体）わん」という設定。手書きの文字で筑波山のスローガン"SHARE THE TRAIL"も入っています。',
+    memo: 'キッズサイズも展開しているので、お子さん連れのお客様には「家族でお揃いにもできますよ」とひと声かけてみましょう。',
+    tags: ['キントン', 'キッズあり', '家族お揃い']
+  },
+  {
+    id: 'hikingma-tshirt', cat: 'tshirt', name: 'ハイキングマ Tシャツ',
+    price: 2400, stores: ['877Stand', '877'], since: '2023年春〜',
+    image: 'products/hikingma-tshirt.png',
+    colors: ['ブラウン'],
+    material: 'ポリエステル100%', body: 'グリマー',
+    desc: '遠くの山からハイキングにやってきたクマが、軽やかに筑波山を飛び越えているイラストTシャツ。ちなみに筑波山にクマは生息していません。',
+    story: '小さな帽子をかぶっていたり、リュックにペットボトルが入っていたりと細かいところまで可愛いポイントがたくさん。手書きの文字で"Mt. Tsukuba"も入っています。',
+    memo: 'キッズサイズも展開しているので、お子さん連れのお客様には「家族でお揃いにもできますよ」とひと声かけてみましょう。',
+    tags: ['キントン', 'キッズあり', '家族お揃い']
+  },
+  {
+    id: 'uribo-tshirt', cat: 'tshirt', name: 'うりぼー Tシャツ',
+    price: 2400, stores: ['877'], since: '2025年4月〜',
+    image: 'products/uribo-tshirt.png',
+    colors: ['ベージュ'],
+    material: 'ポリエステル100%', body: 'ユナイテッドアスレ',
+    desc: '筑波山に生息するうりぼー（イノシシの子ども）たちを描いたTシャツ。あかちゃんみのあるぽってりとしたフォルムがかわいいポイント。3匹のうりぼーはそれぞれちょっとずつ体型が違うので、ぜひ見比べてみて。',
+    story: '手書きの文字で"MT. TSUKUBA FRIENDS"（筑波山の仲間たち）も入っています。',
+    staff: '同じキントンさんシリーズの犬山脈・ハイキングマにはキッズサイズがありますが、うりぼーはキッズサイズの展開がありません。',
+    tags: ['キントン', '店舗限定']
+  },
+  {
+    id: 'souvenir-tshirt', cat: 'tshirt', name: 'スーベニア Tシャツ',
+    price: 3000, stores: ['877Stand', '877'], since: '2025年10月〜',
+    image: 'products/souvenir-tshirt.png',
+    colors: ['ダークグレー', 'スモーキーグリーン'],
+    material: 'ポリエステル100%', body: 'ユナイテッドアスレ',
+    desc: '茨城県立歴史館に所蔵されている「筑波山絵図」をモチーフにしたTシャツ（一部デザイン改変あり／茨城県立歴史館許諾済み）。古い絵地図とロックTテイストを掛け合わせたデザインで、街中にも馴染むのが特徴です。',
+    story: '観光地らしいお土産感のあるデザインをあえて取り入れ、海外の観光地にありそうな雰囲気に仕上げています。漢字と英語混じりのデザインは海外のお客様にも楽しんでもらえるよう意識したもの。',
+    memo: '英語の"TWIN PEAKS"は男体山・女体山の2つの山頂を持つ双耳峰である筑波山を指しており、漢字の「八七七」は筑波山の標高877mを表しています。',
+    tags: ['海外のお客様', '絵図モチーフ']
+  },
+  {
+    id: 'banakun-tshirt', cat: 'tshirt', name: 'バナくん Tシャツ',
+    price: 2800, stores: ['877'], since: '2026年4月〜',
+    image: 'products/banakun-tshirt.png',
+    colors: ['イエロー'],
+    material: '綿100%', body: 'ユナイテッドアスレ',
+    desc: '筑波山の標高877m＝バナナから生まれた、オリジナルのハイカー系バナナキャラ「バナくん」のTシャツ。汗をふきふきしながらバナナが登山するというコミカルなキャラクターで、アメリカンな顔立ち。ちなみに移動はぴょんぴょんジャンプ。',
+    story: 'バナくんは2025年に初開催された「877の日」（8月7日を勝手に制定）の記念ステッカーとしてお披露目されたキャラクター。同月に877Stand（御幸ヶ原一帯）で開催した「877 meets バナナ」企画でも缶バッジとして登場し、その後Tシャツ化しました。',
+    tags: ['新作', 'キャラクター', '綿素材']
+  },
+  {
+    id: 'guardians-tshirt', cat: 'tshirt', name: 'ガーディアンズ Tシャツ',
+    price: 3000, stores: ['877'], since: '2022年4月〜',
+    image: 'products/guardians-tshirt.png',
+    colors: ['ホワイト'],
+    material: 'ポリエステル100%', body: 'グリマー',
+    desc: '筑波山の山道整備や環境保全を行うボランティア団体「つくばトレイルガーディアンズ」とのコラボTシャツ。デザインは同団体の会長で筑波大学芸術系准教授の原忠信先生によるものです。',
+    story: '表面には筑波山のスローガン「Share the Trail」と筑波山のロゴ、裏面には筑波山の登山コース全10コースの名称と距離がデザインされています。袖には「つくばトレイルガーディアンズ」のロゴも入っています。プリントカラーは筑波山カラーの紫。',
+    memo: '売上の一部がつくばトレイルガーディアンズの活動費として寄付されます。筑波山を大切にしたいお客様への一言として「購入が山の整備活動の支援につながります」と伝えると響きやすいです。',
+    tags: ['コラボ', '寄付', '店舗限定']
+  },
+
+  // ─── 手ぬぐい・バンダナ ───
+  {
+    id: 'sanpoyoshi', cat: 'tenugui', name: '筑波山手ぬぐい「三方よし」',
+    price: 1500, stores: ['877Stand', '877'], since: '2024年11月〜',
+    image: 'products/sanpoyoshi.png',
+    colors: ['赤', '青'],
+    material: '綿100%',
+    desc: '三方向から見た筑波山を絵にした手ぬぐい。1つ山は東（石岡市）側、2つ山は南（つくば市）側、3つ山は北（桜川市）側から見た筑波山の姿をイメージしています。',
+    story: '名前の「三方よし」は、近江商人の「売り手よし、買い手よし、世間よし」という商売哲学からきた言葉。三方向から見た筑波山の美しさとかけて名付けられています。',
+    memo: '「パッケージのラベルを外すと筑波山の形になっているんですよ」と伝えると喜ばれます。また、「三方よし」という名前の由来を伝えると、デザインへの興味が深まります。',
+    tags: ['人気', '手捺染', 'ラベル仕掛け']
+  },
+  {
+    id: 'doubutsu-tenugui', cat: 'tenugui', name: '筑波山どうぶつ手ぬぐい',
+    price: 1500, stores: ['877Stand', '877'], since: '2025年10月〜',
+    image: 'products/doubutsu-tenugui.png',
+    colors: ['グリーン', 'イエロー'],
+    material: '綿100%',
+    desc: '茨城在住の女性イラストレーター「栗崎キントン」さんのイラストを使用した手ぬぐい。筑波山に生息する全16種類の動物が描かれています。手書きで"Mt. Tsukuba Friends"（筑波山の仲間たち）と入っているのもポイントです。',
+    story: '描かれている動物：ムササビ、ヒメネズミ、ニホンアナグマ、イタチ、ヤマドリ、アズマモグラ、ハギマシコ、ツクバハコネ、フクロウ、キツネ、ニホンリス、イノシシ、ウリボー、タヌキ、ガマ、ノウサギ',
+    memo: '「筑波山に実際に生息している動物が全部で16種類描かれているんですよ」と伝えると、お客様が動物を探しながら楽しんでくれます。',
+    tags: ['キントン', '16種類の動物']
+  },
+  {
+    id: 'toko-tenugui', cat: 'tenugui', name: '筑波山等高線手ぬぐい',
+    price: 1500, stores: ['877Stand', '877'], since: '2025年10月〜',
+    image: 'products/toko-tenugui.png',
+    colors: ['オレンジ', 'ブラウン'],
+    material: '綿100%',
+    desc: '筑波山の等高線を表した白地図をデザインした手ぬぐい。等高線をよく見ると、中央付近に女体山頂と男体山頂の2つのピーク、さらに中央左上あたりに3つ目の山頂・坊主山も確認できます。',
+    memo: '等高線モチーフは877でも特に人気のシリーズ。Tシャツやマイバッグなどにも同じ等高線デザインが展開されているので、「揃えてもいいですよ」とあわせてご紹介を。',
+    tags: ['人気シリーズ', '等高線']
+  },
+  {
+    id: 'noppo', cat: 'tenugui', name: '筑波山手ぬぐい「noppo」',
+    price: 1500, stores: ['877'], since: '2022年3月〜',
+    image: 'products/noppo.png',
+    colors: ['緑', '黄', 'ピンク', '水色', '黄土', '黒'],
+    material: '綿100%',
+    desc: '筑波山麓に大正〜昭和頃にあった染物屋さんの型紙を復刻してデザインした手ぬぐい。柄はすべて抽象柄で、型紙を保管しているのは筑波山麓で草木染めの工房を構える「ぷにの家」さんです。',
+    story: '6色の色味は一応季節をイメージしています。春は#1（緑）・#2（黄）、夏は#3（ピンク）・#4（水色）、秋・冬は#5（黄土）・#6（黒）。通年使えますが、季節に合わせておすすめの色を変えてみるのもいいです。',
+    memo: '「地元にあった染物屋さんの型紙を復刻したデザインなんですよ」と伝えると、地域とのつながりを感じてもらえます。',
+    tags: ['型紙復刻', '店舗限定']
+  },
+  {
+    id: 'kigan-bandana', cat: 'tenugui', name: '筑波山奇岩バンダナ',
+    price: 1500, stores: ['877Stand', '877'], since: '2025年4月〜',
+    image: 'products/kigan-bandana.png',
+    colors: ['ブラウン×ネイビー'],
+    material: '綿100%', size: '53×53cm',
+    desc: '筑波山の山頂付近に点在する「奇岩群」をモチーフにしたバンダナ。描かれているのは弁慶七戻り、母の胎内くぐり、大仏岩、出船入船、がま石の5つです。',
+    story: '筑波山は全体が深成岩でできており、登山道でも実際に奇岩を見ることができます。',
+    memo: '「描かれている岩、実際に登山道で見られるんですよ」と伝えると、登山前後のお客様に特に刺さります。',
+    tags: ['奇岩', 'トレンド']
+  },
+
+  // ─── 帽子 ───
+  {
+    id: 'knit-watch', cat: 'hat', name: '筑波山ロゴ ニットワッチ',
+    price: 3500, stores: ['877Stand', '877'], since: '2025年4月〜',
+    image: 'products/knit-watch.png',
+    colors: ['オレンジ', 'ブラック'],
+    material: 'アクリル100%', body: 'ニューハッタン',
+    desc: '筑波山のロゴを刺繍したニットワッチ。深すぎず浅すぎずのちょうどよいサイズ感で、毎年秋冬に店頭で展開しています。カラーも基本的に毎年変わるので、その年限りの色との出会いも楽しみのひとつです。',
+    memo: 'アクリル100%素材なので、ウール素材より手入れがしやすく手洗い洗濯が可能です。「お手入れしやすいですよ」とひと声添えると安心してもらえます。',
+    staff: '過去には877刺繍のモデルも存在していましたが、現在は筑波山ロゴのみの展開です。',
+    tags: ['秋冬モデル', '毎年変わる色']
+  },
+  {
+    id: '877-cap', cat: 'hat', name: '877キャップ',
+    price: 3500, stores: ['877Stand', '877'], since: '2025年4月〜',
+    image: 'products/877-cap.png',
+    colors: ['グレー', 'ベージュ', 'タイダイ'],
+    material: 'ポリエステル100%（タイダイのみ綿100%）', body: 'ニューハッタン',
+    desc: '877のロゴを刺繍したキャップ。2026年は漢字「八七七」を刺繍したモデルも展開しています。ポリエステル素材は乾きが早く、汗ムレやベタつきを軽減するので夏のアクティビティに最適。',
+    story: '2026年新作のタイダイカラーは綿100%素材で、長く使うことで自分なりの風合いが出てくる経年変化も楽しめます。',
+    memo: '素材による使い心地の違いを伝えると選びやすくなります。「ポリエステルは夏向きで乾きが早く、タイダイカラーは綿素材なので経年変化も楽しめますよ」とひと声添えてみてください。',
+    tags: ['春夏モデル', '新作あり']
+  },
+
+  // ─── 小物・雑貨 ───
+  {
+    id: 'onsen-towel', cat: 'goods', name: '八七七温泉タオル',
+    price: 800, stores: ['877Stand', '877'], since: '2024年8月〜',
+    image: 'products/onsen-towel.png',
+    colors: ['ホワイト'],
+    material: '綿100%・国産', size: '200匁',
+    desc: '筑波山が温泉郷であることから生まれた温泉タオル。「八七七温泉」は架空の温泉です。筑波山の紫峰カラー×緑のポップな色合わせで、メインビジュアルには元々温泉に入っている設定のキャラクター「がまおじ」が登場しています。',
+    story: '両端が異なるデザインになっているのもポイント。がまおじ側には「毎度ご登頂ありがとうございます」、もう片側はひなびた温泉で配っていそうなレトロなデザインが入っています。',
+    memo: 'ラベルには万葉集の歌人・高橋虫麻呂の和歌が載っています。「今日筑波山に来てよかったな」と思えるような内容の歌で、登山後のお客様にさらっと伝えると喜ばれます。',
+    tags: ['がまおじ', 'お手頃価格']
+  },
+  {
+    id: 'bango-keyholder', cat: 'goods', name: '番号札キーホルダー',
+    price: 400, stores: ['877Stand', '877'], since: '2023年10月〜',
+    image: 'products/bango-keyholder.png',
+    colors: ['がまおじ', 'カエちゃん', 'ヤマドリ先輩', '筑波山ロゴ', 'クキオ'],
+    desc: '筑波山が温泉地であることから連想して生まれたキーホルダー。温泉のロッカーキーについている番号札をお土産キーホルダーにアレンジしました。',
+    story: 'ラインナップは877/877Standのキャラ4種（ヤマドリ先輩・がまおじ・カエちゃん・クキオ）と筑波山ロゴの全5種類。黒の番号札のみ、実際の番号札で使われる書体で「877」と入れてもらっているこだわりポイントもあります。',
+    memo: '¥400と手に取りやすい価格でお土産として人気が高い商品です。複数種類あるので「まとめ買いもおすすめですよ」とひと声かけてみましょう。',
+    staff: 'キャラクターの誕生順はヤマドリ先輩→がまおじ・かえちゃん（同時）→クキオ。がまおじとかえちゃんは何度もカエルキャラを生み出そうとしては失敗を繰り返し、苦労の末に生まれた難産なキャラクター。',
+    tags: ['キャラ全種', '人気', 'お土産']
+  },
+  {
+    id: 'summit-tag', cat: 'goods', name: 'Mt. Tsukuba Summit Tag',
+    price: 800, stores: ['877Stand', '877'], since: '2026年4月〜',
+    image: 'products/summit-tag.png',
+    colors: ['グリーン', 'オフホワイト', 'クリアパープル'],
+    material: 'アクリル製',
+    desc: '筑波山の標高877mと山頂の緯度経度をモチーフにしたアクリルキーホルダー。下部に筑波山のロゴも入っています。グリーンとオフホワイトは不透明、クリアパープルのみ透明仕様です。',
+    memo: '登頂・来山記念のお土産としておすすめしやすい一品です。「番号札キーホルダーと組み合わせてアレンジするのもいいですよ」とあわせてご紹介を。',
+    tags: ['新作', '登頂記念']
+  },
+  {
+    id: 'cotton-bag', cat: 'goods', name: 'コットンマイバッグ',
+    price: 700, stores: ['877Stand', '877'], since: '2022年5月〜',
+    image: 'products/cotton-bag.png',
+    colors: ['オリーブ', 'グレー'],
+    material: '綿100%',
+    desc: '筑波山の等高線をデザインしたコットンマイバッグ。2022年から続くロングセラー商品です。持ち手は長めで肩がけも可能。薄いので折りたたんでバッグに入れやすく、底マチがあるので見た目以上に量が入ります。A4サイズがゆったり入るサイズ感です。',
+    memo: '等高線モチーフは877でも特に人気のシリーズ。等高線Tシャツや等高線手ぬぐいとあわせてご紹介するのもおすすめです。',
+    tags: ['等高線', 'ロングセラー']
+  },
+  {
+    id: 'poly-bag', cat: 'goods', name: '筑波山ポリエステルマイバッグ',
+    price: 2200, stores: ['877Stand', '877'], since: '2025年5月〜',
+    image: 'products/poly-bag.png',
+    colors: ['ブルー', 'ダークグレー'],
+    material: 'ポリエステル100%',
+    desc: '筑波山の標高や緯度経度などが書かれたテプラを思わせるデザインのマイバッグ。丸めてたたむと小さくなり、付属のケースに入れてコンパクトに持ち歩けます。',
+    memo: '他のマイバッグよりもやや値段が高めですが、コンパクトに収納できる機能性と耐久性を伝えると納得してもらいやすいです。',
+    staff: 'ボディが限られているため数量限定商品として販売しています。在庫状況には注意しておきましょう。',
+    tags: ['数量限定']
+  },
+  {
+    id: 'drawing-bag', cat: 'goods', name: '筑波山ドローイングマイバッグ',
+    price: 1500, stores: ['877Stand', '877'], since: '2026年4月〜',
+    image: 'products/drawing-bag.png',
+    colors: ['イエロー', 'ライトグレー', 'ライトピンク'],
+    material: '綿100%',
+    desc: '筑波山の山景をシンプルなドローイングで表現したコットンマイバッグ。薄地でざっくりとした風合いがこなれた雰囲気を出しています。A3サイズも収納できる大きめサイズで、薄いのでたたんでザックに入れてもかさばりません。',
+    memo: 'バッグのカラーとプリントの色が異なる配色がおしゃれなポイント。シンプルなデザインなのでコーデの差し色としても使いやすいです。',
+    tags: ['新作', 'A3対応']
+  },
+  {
+    id: 'postcard', cat: 'goods', name: '筑波山ポストカード',
+    price: 450, stores: ['877Stand', '877'], since: '2022年2月〜',
+    image: 'products/postcard.png',
+    desc: '筑波山の風景を切り取ったポストカード3枚セット。収録内容は以下の3種です。風返し峠付近から撮影した筑波山の山容、たなびく雲が印象的な双耳峰の遠景、シダや杉などが茂る登山道の風景。',
+    memo: 'グリーティングカードや記念の絵ハガキとしてはもちろん、旅の思い出や山の雰囲気を感じるインテリアとしてもおすすめできます。',
+    tags: ['3枚セット']
+  },
+  {
+    id: 'ippitsusen', cat: 'goods', name: '筑波山一筆箋',
+    price: 400, stores: ['877'], since: '2025年12月〜',
+    image: 'products/ippitsusen.png',
+    desc: '877では唯一の文具系商品。がまおじ・カエちゃん・ヤマドリ先輩といったお店のキャラクターをデザインした一筆箋です。しっかりしたやや厚みのある紙で書きやすい仕上がりになっています。',
+    story: '3柄の内訳は、がまおじとカエちゃん（無地・縦書き）、ヤマドリ先輩（罫線入り・横書き）、ぐるぐるカエちゃん（縦横自由）の3種類が各10枚入っています。',
+    memo: '¥400と手に取りやすい価格なので、お土産やちょっとしたプレゼントにもおすすめしやすい商品です。',
+    tags: ['唯一の文具', '店舗限定']
+  },
+  {
+    id: 'sticker-logo', cat: 'goods', name: '筑波山ロゴステッカー',
+    price: 400, stores: ['877Stand', '877'], since: '2021年12月〜',
+    image: 'products/sticker-logo.png',
+    desc: '筑波山のロゴと「Mount Tsukuba」の文字が入ったアウトドアっぽいデザインのステッカー。透明タイプとカラータイプの2種展開で、どちらも紫峰カラー（紫）・ブラック・ホワイトの3色スクエアシールと筑波山ロゴシールの計4点セットになっています。',
+    memo: '水筒やザック、PCなどに貼るのにおすすめ。気軽に買いやすい価格なのでお土産にも向いています。',
+    tags: ['2種展開', 'お土産']
+  },
+  {
+    id: 'sticker-oval', cat: 'goods', name: '楕円ステッカー',
+    price: 300, stores: ['877Stand', '877'], since: '2021年5月〜',
+    image: 'products/sticker-oval.png',
+    desc: 'BASE877時代の最初期から存在するロングセラーアイテム。英語と日本語の2種類のステッカーが1枚のシートにまとまっています。紫のカラーは筑波山の別名「紫峰」カラー。楕円のデザインは、米俵や小判など日本らしい形をイメージしたものです。',
+    memo: '耐候性に優れており、車に貼っていてもほとんど色褪せず剥がれないのが特徴です。「車に貼っても大丈夫ですよ」とひと声添えると、購入の後押しになります。',
+    tags: ['最初期', 'ロングセラー', '耐候性']
+  },
+  {
+    id: 'pinbadge', cat: 'goods', name: '筑波山ピンバッジ',
+    price: 850, stores: ['877Stand', '877'], since: '2021年5月〜',
+    image: 'products/pinbadge.png',
+    colors: ['ゴールド'],
+    desc: '筑波山のロゴをかたどったピンバッジ。BASE877時代の最初期から続くロングセラーの人気商品です。リュックや帽子につけている方が多く、バッジ裏には"Share the trail"の刻印が入っています。',
+    memo: '「このロゴ、10本の線で構成されているんですが、実は筑波山の登山コース全10コースを表していて、線の長さもコースの距離と連動しているんですよ」とひと声添えてみてください。',
+    staff: 'ロゴのデザインは筑波大学芸術系准教授の原忠信先生によるもの。ガーディアンズTシャツのデザインも同じ先生です。初期に銀ver.も存在しました。',
+    tags: ['最初期', 'ロングセラー']
+  },
+  {
+    id: 'mug', cat: 'goods', name: 'マグカップ',
+    price: 1800, stores: ['877Stand', '877'], since: null,
+    image: 'products/mug.png',
+    desc: '877Stand・877それぞれの店内で実際に使用しているマグカップと同じものを販売しています。各店舗のロゴが入ったシンプルなデザインで、厚口なので飲み口がよいのが特徴です。電子レンジ使用可能。',
+    memo: '「実際にお店で使っているのと同じカップなんですよ」と伝えると、お店の体験ごと持ち帰れる感覚で喜ばれます。',
+    tags: ['厚口', '店内使用同型']
+  },
+  {
+    id: 'drip', cat: 'goods', name: 'ドリップバッグ',
+    price: 300, stores: ['877Stand', '877'], since: null,
+    image: 'products/drip.png',
+    desc: '877Stand・877それぞれで提供しているブレンドと同じコーヒーを、自宅で楽しめるドリップバッグタイプにしました。',
+    story: 'Mt. Tsukuba Blend（877Stand）は中浅煎りで、ブラジル・コロンビア・エチオピアのブレンド。華やかでスッキリとした味わいです。だんだん（877）は中深煎りで、ブラジル・コロンビア・インドネシアのブレンド。Mt. Tsukuba Blendよりもコクが深い仕上がりです。',
+    memo: '「お店で飲んだコーヒーと同じブレンドを家でも楽しめますよ」と伝えるとお土産として手に取ってもらいやすいです。',
+    tags: ['2種ブレンド']
+  },
+  {
+    id: 'gacha', cat: 'goods', name: 'ガチャガチャ',
+    price: 300, stores: ['877Stand', '877'], since: null,
+    image: 'products/gacha.png',
+    desc: 'TSUKUBAステッカーズ：筑波山にちなんだ絵柄のステッカーセットの運試し。キラシールが出ることも。全7種。かえるバトルみくじ：かえるフィギュアとおみくじがセットになった運試し。',
+    story: 'かえるバトルみくじのおみくじはオリジナルルールのじゃんけんゲームになっており、タイプ属性や技など、ポケカのような要素もあって大人も意外とハマれる内容です。全12種。',
+    memo: '「かえるバトルみくじはおみくじなのにバトルができるんですよ」と伝えるとお子さんはもちろん大人のお客様にも興味を持ってもらいやすいです。',
+    tags: ['運試し', '2種展開']
+  },
+];
+
+window.CATEGORIES = [
+  { id: 'all', label: 'すべて', icon: '全' },
+  { id: 'tshirt', label: 'Tシャツ', icon: 'T' },
+  { id: 'tenugui', label: '手ぬぐい・バンダナ', icon: '手' },
+  { id: 'hat', label: '帽子', icon: '帽' },
+  { id: 'goods', label: '小物・雑貨', icon: '小' },
+];
+
+// Build filename index for PDF-extracted images. Key = "p01" → path = "pdf-images/01_xxx.jpg"
+window.PDF_IMAGE_INDEX = {
+  p01: 'pdf-images/01_626x626.jpg',
+  p02: 'pdf-images/02_355x266.jpg',
+  p03: 'pdf-images/03_355x266.jpg',
+  p04: 'pdf-images/04_355x266.jpg',
+  p05: 'pdf-images/05_1500x1125.jpg',
+  p06: 'pdf-images/06_2048x1365.jpg',
+  p07: 'pdf-images/07_1448x1916.jpg',
+  p08: 'pdf-images/08_2048x1365.jpg',
+  p09: 'pdf-images/09_2048x1365.jpg',
+  p10: 'pdf-images/10_1965x2048.jpg',
+  p11: 'pdf-images/11_1190x1144.jpg',
+  p12: 'pdf-images/12_2048x1365.jpg',
+  p13: 'pdf-images/13_1608x1534.jpg',
+  p14: 'pdf-images/14_1280x1920.jpg',
+  p15: 'pdf-images/15_1280x1920.jpg',
+  p16: 'pdf-images/16_1280x1920.jpg',
+  p17: 'pdf-images/17_1365x2048.jpg',
+  p18: 'pdf-images/18_1365x2048.jpg',
+  p19: 'pdf-images/19_2048x1365.jpg',
+  p20: 'pdf-images/20_1179x779.jpg',
+  p21: 'pdf-images/21_750x310.jpg',
+  p22: 'pdf-images/22_2048x1536.jpg',
+  p23: 'pdf-images/23_2048x1365.jpg',
+  p24: 'pdf-images/24_1179x1462.jpg',
+  p25: 'pdf-images/25_1500x1525.jpg',
+  p26: 'pdf-images/26_1365x2048.jpg',
+  p27: 'pdf-images/27_1365x2048.jpg',
+  p28: 'pdf-images/28_1365x2048.jpg',
+  p29: 'pdf-images/29_614x536.jpg',
+  p30: 'pdf-images/30_812x792.jpg',
+  p31: 'pdf-images/31_1920x1280.jpg',
+  p32: 'pdf-images/32_902x682.jpg',
+  p33: 'pdf-images/33_1210x804.jpg',
+  p34: 'pdf-images/34_682x1020.jpg',
+  p35: 'pdf-images/35_1920x1280.jpg',
+  p36: 'pdf-images/36_712x906.jpg',
+  p37: 'pdf-images/37_1018x878.jpg',
+  p38: 'pdf-images/38_1200x800.jpg',
+  p39: 'pdf-images/39_1200x800.jpg',
+  p40: 'pdf-images/40_284x776.jpg',
+  p41: 'pdf-images/41_252x758.jpg',
+  p42: 'pdf-images/42_888x784.jpg',
+  p43: 'pdf-images/43_1920x1280.jpg',
+  p44: 'pdf-images/44_2048x1365.jpg',
+  p45: 'pdf-images/45_1179x1320.jpg',
+  p46: 'pdf-images/46_848x786.jpg',
+  p47: 'pdf-images/47_1200x900.jpg',
+  p48: 'pdf-images/48_1179x1465.jpg',
+  p49: 'pdf-images/49_1179x1453.jpg',
+};
+
+// Default image assignments (baked in from gallery). Used if localStorage is empty.
+window.DEFAULT_IMAGE_ASSIGNMENTS = {
+  "p05": "__about",
+  "p06": "877stand-tshirt",
+  "p07": "877-tshirt",
+  "p08": "toko-tshirt",
+  "p09": "inuyamamyaku-tshirt",
+  "p10": "inuyamamyaku-tshirt",
+  "p11": "inuyamamyaku-tshirt",
+  "p12": "hikingma-tshirt",
+  "p13": "hikingma-tshirt",
+  "p14": "uribo-tshirt",
+  "p15": "souvenir-tshirt",
+  "p16": "banakun-tshirt",
+  "p17": "guardians-tshirt",
+  "p18": "guardians-tshirt",
+  "p19": "sanpoyoshi",
+  "p20": "doubutsu-tenugui",
+  "p21": "doubutsu-tenugui",
+  "p22": "toko-tenugui",
+  "p23": "noppo",
+  "p24": "kigan-bandana",
+  "p25": "kigan-bandana",
+  "p26": "knit-watch",
+  "p27": "knit-watch",
+  "p28": "877-cap",
+  "p29": "877-cap",
+  "p30": "onsen-towel",
+  "p31": "bango-keyholder",
+  "p32": "summit-tag",
+  "p33": "cotton-bag",
+  "p34": "poly-bag",
+  "p35": "drawing-bag",
+  "p36": "postcard",
+  "p37": "postcard",
+  "p41": "sticker-logo",
+  "p42": "sticker-oval",
+  "p43": "pinbadge",
+  "p44": "mug",
+  "p45": "mug",
+  "p46": "drip",
+  "p47": "drip",
+  "p48": "gacha",
+  "p49": "gacha"
+};
+
+// Returns array of image URLs for a product. Uses gallery assignments if any;
+// falls back to product.image. Order = assignment insertion order.
+window.imagesFor = function(product) {
+  if (!product) return [];
+  let assignments = {};
+  try { assignments = JSON.parse(localStorage.getItem('877-image-assignments') || '{}'); } catch {}
+  // If localStorage is empty, use baked-in defaults
+  if (Object.keys(assignments).length === 0) {
+    assignments = window.DEFAULT_IMAGE_ASSIGNMENTS || {};
+  }
+  const mine = Object.keys(assignments).filter(k => assignments[k] === product.id);
+  if (mine.length > 0) {
+    return mine.map(k => window.PDF_IMAGE_INDEX[k]).filter(Boolean);
+  }
+  return product.image ? [product.image] : [];
+};
+
+</script>
+<script type="text/babel">
+
+// ===== ios-frame.jsx =====
+
+// iOS.jsx — Simplified iOS 26 (Liquid Glass) device frame
+// Based on the iOS 26 UI Kit + Figma status bar spec. No assets, no deps.
+// Exports: IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard
+
+// ─────────────────────────────────────────────────────────────
+// Status bar
+// ─────────────────────────────────────────────────────────────
+function IOSStatusBar({ dark = false, time = '9:41' }) {
+  const c = dark ? '#fff' : '#000';
+  return (
+    <div style={{
+      display: 'flex', gap: 154, alignItems: 'center', justifyContent: 'center',
+      padding: '21px 24px 19px', boxSizing: 'border-box',
+      position: 'relative', zIndex: 20, width: '100%',
+    }}>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 1.5 }}>
+        <span style={{
+          fontFamily: '-apple-system, "SF Pro", system-ui', fontWeight: 590,
+          fontSize: 17, lineHeight: '22px', color: c,
+        }}>{time}</span>
+      </div>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, paddingTop: 1, paddingRight: 1 }}>
+        <svg width="19" height="12" viewBox="0 0 19 12">
+          <rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill={c}/>
+          <rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill={c}/>
+          <rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill={c}/>
+          <rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill={c}/>
+        </svg>
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill={c}/>
+          <path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill={c}/>
+          <circle cx="8.5" cy="10.5" r="1.5" fill={c}/>
+        </svg>
+        <svg width="27" height="13" viewBox="0 0 27 13">
+          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke={c} strokeOpacity="0.35" fill="none"/>
+          <rect x="2" y="2" width="20" height="9" rx="2" fill={c}/>
+          <path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill={c} fillOpacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Liquid glass pill — blur + tint + shine
+// ─────────────────────────────────────────────────────────────
+function IOSGlassPill({ children, dark = false, style = {} }) {
+  return (
+    <div style={{
+      height: 44, minWidth: 44, borderRadius: 9999,
+      position: 'relative', overflow: 'hidden',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      boxShadow: dark
+        ? '0 2px 6px rgba(0,0,0,0.35), 0 6px 16px rgba(0,0,0,0.2)'
+        : '0 1px 3px rgba(0,0,0,0.07), 0 3px 10px rgba(0,0,0,0.06)',
+      ...style,
+    }}>
+      {/* blur + tint */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.28)' : 'rgba(255,255,255,0.5)',
+      }} />
+      {/* shine */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15), inset -1px -1px 1px rgba(255,255,255,0.08)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+      }} />
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', padding: '0 4px' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Navigation bar — glass pills + large title
+// ─────────────────────────────────────────────────────────────
+function IOSNavBar({ title = 'Title', dark = false, trailingIcon = true }) {
+  const muted = dark ? 'rgba(255,255,255,0.6)' : '#404040';
+  const text = dark ? '#fff' : '#000';
+  const pillIcon = (content) => (
+    <IOSGlassPill dark={dark}>
+      <div style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {content}
+      </div>
+    </IOSGlassPill>
+  );
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column', gap: 10,
+      paddingTop: 62, paddingBottom: 10, position: 'relative', zIndex: 5,
+    }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 16px',
+      }}>
+        {/* back chevron */}
+        {pillIcon(
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" style={{ marginLeft: -1 }}>
+            <path d="M10 2L2 10l8 8" stroke={muted} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+        {/* trailing ellipsis */}
+        {trailingIcon && pillIcon(
+          <svg width="22" height="6" viewBox="0 0 22 6">
+            <circle cx="3" cy="3" r="2.5" fill={muted}/>
+            <circle cx="11" cy="3" r="2.5" fill={muted}/>
+            <circle cx="19" cy="3" r="2.5" fill={muted}/>
+          </svg>
+        )}
+      </div>
+      {/* large title */}
+      <div style={{
+        padding: '0 16px',
+        fontFamily: '-apple-system, system-ui',
+        fontSize: 34, fontWeight: 700, lineHeight: '41px',
+        color: text, letterSpacing: 0.4,
+      }}>{title}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Grouped list (inset card, r:26) + row (52px)
+// ─────────────────────────────────────────────────────────────
+function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark = false }) {
+  const text = dark ? '#fff' : '#000';
+  const sec = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const ter = dark ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)';
+  const sep = dark ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.12)';
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', minHeight: 52,
+      padding: '0 16px', position: 'relative',
+      fontFamily: '-apple-system, system-ui', fontSize: 17,
+      letterSpacing: -0.43,
+    }}>
+      {icon && (
+        <div style={{
+          width: 30, height: 30, borderRadius: 7, background: icon,
+          marginRight: 12, flexShrink: 0,
+        }} />
+      )}
+      <div style={{ flex: 1, color: text }}>{title}</div>
+      {detail && <span style={{ color: sec, marginRight: 6 }}>{detail}</span>}
+      {chevron && (
+        <svg width="8" height="14" viewBox="0 0 8 14" style={{ flexShrink: 0 }}>
+          <path d="M1 1l6 6-6 6" stroke={ter} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )}
+      {!isLast && (
+        <div style={{
+          position: 'absolute', bottom: 0, right: 0,
+          left: icon ? 58 : 16, height: 0.5, background: sep,
+        }} />
+      )}
+    </div>
+  );
+}
+
+function IOSList({ header, children, dark = false }) {
+  const hc = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const bg = dark ? '#1C1C1E' : '#fff';
+  return (
+    <div>
+      {header && (
+        <div style={{
+          fontFamily: '-apple-system, system-ui', fontSize: 13,
+          color: hc, textTransform: 'uppercase',
+          padding: '8px 36px 6px', letterSpacing: -0.08,
+        }}>{header}</div>
+      )}
+      <div style={{
+        background: bg, borderRadius: 26,
+        margin: '0 16px', overflow: 'hidden',
+      }}>{children}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Device frame
+// ─────────────────────────────────────────────────────────────
+function IOSDevice({
+  children, width = 402, height = 874, dark = false,
+  title, keyboard = false,
+}) {
+  return (
+    <div style={{
+      width, height, borderRadius: 48, overflow: 'hidden',
+      position: 'relative', background: dark ? '#000' : '#F2F2F7',
+      boxShadow: '0 40px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.12)',
+      fontFamily: '-apple-system, system-ui, sans-serif',
+      WebkitFontSmoothing: 'antialiased',
+    }}>
+      {/* dynamic island */}
+      <div style={{
+        position: 'absolute', top: 11, left: '50%', transform: 'translateX(-50%)',
+        width: 126, height: 37, borderRadius: 24, background: '#000', zIndex: 50,
+      }} />
+      {/* status bar (absolute) */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10 }}>
+        <IOSStatusBar dark={dark} />
+      </div>
+      {/* nav + content */}
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {title !== undefined && <IOSNavBar title={title} dark={dark} />}
+        <div style={{ flex: 1, overflow: 'auto' }}>{children}</div>
+        {keyboard && <IOSKeyboard dark={dark} />}
+      </div>
+      {/* home indicator — always on top */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 60,
+        height: 34, display: 'flex', justifyContent: 'center', alignItems: 'flex-end',
+        paddingBottom: 8, pointerEvents: 'none',
+      }}>
+        <div style={{
+          width: 139, height: 5, borderRadius: 100,
+          background: dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.25)',
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Keyboard — iOS 26 liquid glass
+// ─────────────────────────────────────────────────────────────
+function IOSKeyboard({ dark = false }) {
+  const glyph = dark ? 'rgba(255,255,255,0.7)' : '#595959';
+  const sugg = dark ? 'rgba(255,255,255,0.6)' : '#333';
+  const keyBg = dark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)';
+
+  // special-key icons
+  const icons = {
+    shift: <svg width="19" height="17" viewBox="0 0 19 17"><path d="M9.5 1L1 9.5h4.5V16h8V9.5H18L9.5 1z" fill={glyph}/></svg>,
+    del: <svg width="23" height="17" viewBox="0 0 23 17"><path d="M7 1h13a2 2 0 012 2v11a2 2 0 01-2 2H7l-6-7.5L7 1z" fill="none" stroke={glyph} strokeWidth="1.6" strokeLinejoin="round"/><path d="M10 5l7 7M17 5l-7 7" stroke={glyph} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+    ret: <svg width="20" height="14" viewBox="0 0 20 14"><path d="M18 1v6H4m0 0l4-4M4 7l4 4" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  };
+
+  const key = (content, { w, flex, ret, fs = 25, k } = {}) => (
+    <div key={k} style={{
+      height: 42, borderRadius: 8.5,
+      flex: flex ? 1 : undefined, width: w, minWidth: 0,
+      background: ret ? '#08f' : keyBg,
+      boxShadow: '0 1px 0 rgba(0,0,0,0.075)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: '-apple-system, "SF Compact", system-ui',
+      fontSize: fs, fontWeight: 458, color: ret ? '#fff' : glyph,
+    }}>{content}</div>
+  );
+
+  const row = (keys, pad = 0) => (
+    <div style={{ display: 'flex', gap: 6.5, justifyContent: 'center', padding: `0 ${pad}px` }}>
+      {keys.map(l => key(l, { flex: true, k: l }))}
+    </div>
+  );
+
+  return (
+    <div style={{
+      position: 'relative', zIndex: 15, borderRadius: 27, overflow: 'hidden',
+      padding: '11px 0 2px',
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      boxShadow: dark
+        ? '0 -2px 20px rgba(0,0,0,0.09)'
+        : '0 -1px 6px rgba(0,0,0,0.018), 0 -3px 20px rgba(0,0,0,0.012)',
+    }}>
+      {/* liquid glass bg — same recipe as nav pills */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.14)' : 'rgba(255,255,255,0.25)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+        pointerEvents: 'none',
+      }} />
+
+      {/* autocorrect bar */}
+      <div style={{
+        display: 'flex', gap: 20, alignItems: 'center',
+        padding: '8px 22px 13px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {['"The"', 'the', 'to'].map((w, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && <div style={{ width: 1, height: 25, background: '#ccc', opacity: 0.3 }} />}
+            <div style={{
+              flex: 1, textAlign: 'center',
+              fontFamily: '-apple-system, system-ui', fontSize: 17,
+              color: sugg, letterSpacing: -0.43, lineHeight: '22px',
+            }}>{w}</div>
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* key layout */}
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 13,
+        padding: '0 6.5px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {row(['q','w','e','r','t','y','u','i','o','p'])}
+        {row(['a','s','d','f','g','h','j','k','l'], 20)}
+        <div style={{ display: 'flex', gap: 14.25, alignItems: 'center' }}>
+          {key(icons.shift, { w: 45, k: 'shift' })}
+          <div style={{ display: 'flex', gap: 6.5, flex: 1 }}>
+            {['z','x','c','v','b','n','m'].map(l => key(l, { flex: true, k: l }))}
+          </div>
+          {key(icons.del, { w: 45, k: 'del' })}
+        </div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {key('ABC', { w: 92.25, fs: 18, k: 'abc' })}
+          {key('', { flex: true, k: 'space' })}
+          {key(icons.ret, { w: 92.25, ret: true, k: 'ret' })}
+        </div>
+      </div>
+
+      {/* bottom spacer (emoji+mic area, icons omitted) */}
+      <div style={{ height: 56, width: '100%', position: 'relative' }} />
+    </div>
+  );
+}
+
+Object.assign(window, {
+  IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard,
+});
+
+// ===== components-core.jsx =====
+// 877商品マガジン - メインアプリ
+// Design: Editorial magazine meets mobile catalog. 紫峰 purple + cream background.
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "layout": "card",
+  "accent": "purple",
+  "density": "cozy",
+  "imagePositions": {
+    "877stand-tshirt": {
+      "x": 0,
+      "y": 43
+    },
+    "877-cap": {
+      "x": 49,
+      "y": 53
+    },
+    "onsen-towel": {
+      "x": 31,
+      "y": 0
+    },
+    "inuyamamyaku-tshirt": {
+      "x": 52,
+      "y": 42
+    },
+    "noppo": {
+      "x": 68,
+      "y": 50
+    },
+    "ippitsusen": {
+      "x": 47,
+      "y": 50
+    },
+    "bango-keyholder": {
+      "x": 50,
+      "y": 45
+    },
+    "poly-bag": {
+      "x": 35,
+      "y": 50
+    },
+    "toko-tenugui": {
+      "x": 36,
+      "y": 50
+    }
+  },
+  "newArrivals": [
+    "banakun-tshirt",
+    "drawing-bag",
+    "summit-tag",
+    "877-cap"
+  ],
+  "columns": {
+    "__tshirt": {
+      "character": "gamaoji",
+      "text": "わしは乾くと死ぬけどな"
+    },
+    "__tenugui": {
+      "character": "gamaoji",
+      "text": "使い倒すがいい\n"
+    },
+    "drip": {
+      "character": "gamaoji",
+      "text": "まいう〜"
+    },
+    "mug": {
+      "character": "yamadori",
+      "text": "厚口ィィィ！"
+    },
+    "bango-keyholder": {
+      "character": "kukio",
+      "text": "おでもほじい\n"
+    },
+    "onsen-towel": {
+      "character": "gamaoji",
+      "text": "風呂入れよ"
+    },
+    "gacha": {
+      "character": "kaechan",
+      "text": "硬貨が詰まりやすいよ"
+    },
+    "uribo-tshirt": {
+      "character": "kaechan",
+      "text": ""
+    }
+  },
+  "characterImages": {}
+}/*EDITMODE-END*/;
+
+// Character avatars for column cards. Each char has its own objectPosition
+// tuned to its source image's quirks (crop/offset).
+const CHAR_STYLES = {
+  gamaoji:  { objectPosition: 'calc(50% + 5px) calc(100% - 10px)', scale: 0.90 },
+  kaechan:  { objectPosition: 'center 70%',    scale: 0.70 },
+  yamadori: { objectPosition: 'calc(50% + 5px) calc(65% - 10px)',    scale: 1.14 },
+  kukio:    { objectPosition: 'calc(50% + 15px) calc(80% - 3px)',    scale: 1.40 },
+};
+window.CHAR_STYLES = CHAR_STYLES;
+
+const ACCENTS = {
+  purple: { main: '#6B5B9E', deep: '#4A3D7A', tint: '#EFEAF5' },
+  forest: { main: '#4A6B4F', deep: '#2F4A33', tint: '#E6EDE7' },
+  terracotta: { main: '#B8623F', deep: '#8A4527', tint: '#F4E5DD' },
+};
+
+// ──────────────────── Icon ────────────────────
+function Icon({ name, size = 20, color = 'currentColor', stroke = 1.7 }) {
+  const s = size;
+  const c = color;
+  const paths = {
+    search: <><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></>,
+    x: <><path d="M5 5l14 14M19 5L5 19"/></>,
+    arrow: <><path d="M4 12h16m-6-6l6 6-6 6"/></>,
+    back: <><path d="M20 12H4m6-6l-6 6 6 6"/></>,
+    heart: <><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></>,
+    filter: <><path d="M3 6h18M6 12h12M10 18h4"/></>,
+    chevron: <><path d="M9 6l6 6-6 6"/></>,
+    star: <><path d="M12 2l3 7 7 .8-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.4L2 9.8 9 9z"/></>,
+    dot: <circle cx="12" cy="12" r="3" fill={c} stroke="none"/>,
+    mountain: <><path d="M3 20l6-10 4 6 3-4 5 8H3z"/></>,
+    tag: <><path d="M20.59 13.41l-8-8A2 2 0 0 0 11.17 5H4a1 1 0 0 0-1 1v7.17a2 2 0 0 0 .59 1.41l8 8a2 2 0 0 0 2.83 0l6.17-6.17a2 2 0 0 0 0-2.83z"/><circle cx="7.5" cy="7.5" r="1" fill={c}/></>,
+    home: <><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></>,
+    book: <><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M4 16a4 4 0 0 1 4-4h12"/></>,
+    bookmark: <><path d="M6 3h12v19l-6-4-6 4z"/></>,
+    user: <><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></>,
+  };
+  return (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">
+      {paths[name]}
+    </svg>
+  );
+}
+
+window.Icon = Icon;
+window.ACCENTS = ACCENTS;
+window.TWEAK_DEFAULTS = TWEAK_DEFAULTS;
+
+// ===== screen-home.jsx =====
+// Home screen - magazine cover style
+function HomeScreen({ setView, setSelectedId, accent, setCategory, category, search, setSearch, tweaks }) {
+  const [showSearch, setShowSearch] = React.useState(false);
+  const products = window.PRODUCTS_DATA;
+  const categories = window.CATEGORIES;
+
+  // 新商品: Tweaksで指定された順番どおりに表示
+  const newArrivalIds = (tweaks && tweaks.newArrivals) || [];
+  const newProducts = newArrivalIds
+    .map(id => products.find(p => p.id === id))
+    .filter(Boolean);
+
+  const filtered = products.filter(p => {
+    if (category !== 'all' && p.cat !== category) return false;
+    if (search && !p.name.includes(search) && !(p.desc && p.desc.includes(search)) && !(p.tags || []).some(t => t.includes(search))) return false;
+    return true;
+  });
+
+  return (
+    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif' }}>
+      {/* Status area spacer */}
+      <div style={{ height: 54 }} />
+
+      {/* Top bar - paper masthead */}
+      <div style={{ padding: '8px 18px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ fontSize: 10, letterSpacing: 2, fontFamily: 'ui-monospace, monospace', color: '#6B6B6B' }}>
+          MT.TSUKUBA · 877m
+        </div>
+        <div style={{ fontSize: 10, letterSpacing: 1, fontFamily: 'ui-monospace, monospace', color: '#6B6B6B' }}>
+          VOL.01 / 2026
+        </div>
+      </div>
+
+      {/* Hero masthead */}
+      <div style={{ padding: '16px 18px 8px', borderBottom: '2px solid #1F1B16', margin: '0 18px', position: 'relative' }}>
+        <div style={{ fontSize: 11, letterSpacing: 3, fontFamily: 'ui-monospace, monospace', color: accent.main, fontWeight: 700 }}>
+          877 MORIMORIMAGAZINE
+        </div>
+        <h1 style={{
+          fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif',
+          fontSize: 30, fontWeight: 700, letterSpacing: -0.5,
+          margin: 0, padding: '5px 0', lineHeight: 1.2,
+        }}>
+          877商品知識<br />もりもりマガジン
+        </h1>
+        <div style={{ fontSize: 11, color: '#6B6B6B', marginBottom: 10, lineHeight: 1.6 }}>
+          知っておくとちょっと楽しい、接客にも役立つ情報集。
+        </div>
+        {/* Character corner */}
+        <div style={{ position: 'absolute', top: 14, right: 10, width: 72, height: 72 }}>
+          <StagedImg src="characters/gamaoji.png" style={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: 'multiply' }} />
+        </div>
+      </div>
+
+      {/* New arrivals - horizontal carousel */}
+      {newProducts.length > 0 && (
+        <div style={{ padding: '18px 0 10px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 10, padding: '0 18px' }}>
+            <div style={{ fontSize: 11, fontFamily: 'ui-monospace, monospace', letterSpacing: 1.5, color: '#6B6B6B' }}>
+              NEW ARRIVALS · 新商品
+            </div>
+            <div style={{ fontSize: 10, color: accent.main, fontFamily: 'ui-monospace, monospace' }}>
+              {newProducts.length} items
+            </div>
+          </div>
+          <div style={{
+            display: 'flex', gap: 10, overflowX: 'auto',
+            padding: '2px 18px 10px', scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch',
+          }}>
+            {newProducts.map((prod, i) => (
+              <NewArrivalCard
+                key={prod.id}
+                product={prod}
+                accent={accent}
+                rank={i + 1}
+                onClick={() => { setSelectedId(prod.id); setView('detail'); }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Column banners - About / T-shirts / Tenugui */}
+      <div style={{ padding: '4px 18px 10px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <ColumnBanner
+          kicker="ABOUT"
+          title="877の商品について"
+          accent={accent}
+          onClick={() => setView('about')}
+        />
+        <ColumnBanner
+          kicker="T-SHIRTS"
+          title="Tシャツについて"
+          accent={accent}
+          onClick={() => setView('column-tshirt')}
+        />
+        <ColumnBanner
+          kicker="TENUGUI"
+          title="手ぬぐいについて"
+          accent={accent}
+          onClick={() => setView('column-tenugui')}
+        />
+      </div>
+
+      {/* Search bar */}
+      <div style={{ padding: '6px 18px 12px' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          background: '#fff', borderRadius: 999, padding: '10px 14px',
+          border: '1px solid #1F1B16',
+        }}>
+          <Icon name="search" size={16} color="#6B6B6B" />
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="商品名・キーワードで検索"
+            style={{
+              flex: 1, border: 'none', outline: 'none', background: 'transparent',
+              fontSize: 14, fontFamily: 'inherit', color: '#1F1B16',
+            }}
+          />
+          {search && (
+            <button onClick={() => setSearch('')} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+              <Icon name="x" size={14} color="#6B6B6B" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Category pills */}
+      <div style={{ padding: '0 0 14px' }}>
+        <div style={{ display: 'flex', gap: 6, padding: '0 18px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+          {categories.map(c => {
+            const active = category === c.id;
+            const count = c.id === 'all' ? products.length : products.filter(p => p.cat === c.id).length;
+            return (
+              <button key={c.id} onClick={() => setCategory(c.id)} style={{
+                background: active ? '#1F1B16' : 'transparent',
+                color: active ? '#F5F0E6' : '#1F1B16',
+                border: active ? '1px solid #1F1B16' : '1px solid #1F1B16',
+                borderRadius: 999, padding: '7px 14px',
+                fontSize: 13, fontFamily: 'inherit', fontWeight: 500,
+                whiteSpace: 'nowrap', cursor: 'pointer', flexShrink: 0,
+                display: 'flex', alignItems: 'center', gap: 6,
+              }}>
+                {c.label}
+                <span style={{
+                  fontSize: 10, opacity: 0.6, fontFamily: 'ui-monospace, monospace',
+                }}>{count}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Article index section header */}
+      <div style={{ padding: '2px 18px 8px', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontSize: 10, fontFamily: 'ui-monospace, monospace', letterSpacing: 1.5, color: '#6B6B6B' }}>
+            INDEX · 目次
+          </div>
+          <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
+            {category === 'all' ? 'すべての商品' : categories.find(c => c.id === category).label}
+          </div>
+        </div>
+        <div style={{ fontSize: 11, color: '#6B6B6B' }}>{filtered.length}件</div>
+      </div>
+
+      {/* Category column shortcut (tshirt / tenugui only) */}
+      {(category === 'tshirt' || category === 'tenugui') && (
+        <div style={{ padding: '0 18px 12px' }}>
+          <ColumnBanner
+            kicker={category === 'tshirt' ? 'T-SHIRTS' : 'TENUGUI'}
+            title={category === 'tshirt' ? 'Tシャツについて' : '手ぬぐいについて'}
+            accent={accent}
+            onClick={() => setView(category === 'tshirt' ? 'column-tshirt' : 'column-tenugui')}
+          />
+        </div>
+      )}
+
+      {/* Product list */}
+      <div style={{ padding: '0 18px 110px' }}>
+        {filtered.length === 0 ? (
+          <div style={{ padding: '40px 20px', textAlign: 'center', color: '#6B6B6B', fontSize: 13 }}>
+            該当する商品がありません
+          </div>
+        ) : filtered.map((p, i) => (
+          <ProductRow key={p.id} p={p} accent={accent} index={i}
+            onClick={() => { setSelectedId(p.id); setView('detail'); }} />
+        ))}
+        <div style={{ textAlign: 'center', padding: '28px 0 0', fontSize: 10, fontFamily: 'ui-monospace, monospace', color: '#6B6B6B', letterSpacing: 2 }}>
+          ─── END ───
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Column banner (home shortcut)
+function ColumnBanner({ kicker, title, accent, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        width: '100%', display: 'grid', gridTemplateColumns: '1fr auto',
+        alignItems: 'center', gap: 12, padding: '14px 16px',
+        background: accent.tint, border: '1px solid #1F1B16', borderRadius: 4,
+        cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
+        boxShadow: '3px 3px 0 #1F1B16',
+      }}
+    >
+      <div>
+        <div style={{ fontSize: 10, letterSpacing: 2, fontFamily: 'ui-monospace, monospace', color: accent.main, fontWeight: 700, marginBottom: 4 }}>
+          {kicker}
+        </div>
+        <div style={{ fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif', fontSize: 18, fontWeight: 700, lineHeight: 1.25, letterSpacing: -0.3 }}>
+          {title}
+        </div>
+      </div>
+      <div style={{
+        width: 34, height: 34, borderRadius: '50%',
+        background: '#1F1B16', color: '#fff',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        flexShrink: 0,
+      }}>
+        <Icon name="arrow" size={16} color="#fff" />
+      </div>
+    </button>
+  );
+}
+
+// New arrival card (horizontal carousel)
+function NewArrivalCard({ product, accent, rank, onClick }) {
+  const imgs = window.imagesFor(product);
+  return (
+    <button onClick={onClick} style={{
+      position: 'relative', border: '1px solid #1F1B16', background: '#fff',
+      borderRadius: 2, padding: 0, cursor: 'pointer', overflow: 'hidden',
+      textAlign: 'left', fontFamily: 'inherit',
+      width: 150, flexShrink: 0, scrollSnapAlign: 'start',
+      display: 'flex', flexDirection: 'column',
+      boxShadow: '2px 2px 0 #1F1B16',
+    }}>
+      <div style={{
+        aspectRatio: '1 / 1', overflow: 'hidden',
+        position: 'relative', background: '#EFEAE1',
+      }}>
+        <StagedImg src={imgs[0]} productKey={product.id} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{
+          position: 'absolute', top: 6, left: 6,
+          background: accent.main, color: '#fff',
+          padding: '2px 6px', fontSize: 9, fontFamily: 'ui-monospace, monospace',
+          letterSpacing: 1, fontWeight: 700,
+        }}>NEW {String(rank).padStart(2, '0')}</div>
+      </div>
+      <div style={{ padding: '8px 10px', borderTop: '1px solid #1F1B16', background: '#fff' }}>
+        <div style={{ fontSize: 12, fontWeight: 600, lineHeight: 1.3, marginBottom: 3,
+          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {product.name}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 6 }}>
+          <div style={{ fontSize: 10, color: '#6B6B6B', fontFamily: 'ui-monospace, monospace' }}>
+            ¥{product.price.toLocaleString()}
+          </div>
+          {product.since && (
+            <div style={{ fontSize: 9, color: accent.main, fontFamily: 'ui-monospace, monospace', fontWeight: 700 }}>
+              {product.since.replace('〜', '').replace(/年|月/g, m => m === '年' ? '.' : '')}
+            </div>
+          )}
+        </div>
+      </div>
+    </button>
+  );
+}
+
+// Feature card (legacy, kept for potential reuse)
+function FeatureCard({ product, accent, big, onClick }) {
+  const imgs = window.imagesFor(product);
+  return (
+    <button onClick={onClick} style={{
+      position: 'relative', border: '1px solid #1F1B16', background: '#fff',
+      borderRadius: 2, padding: 0, cursor: 'pointer', overflow: 'hidden',
+      textAlign: 'left', fontFamily: 'inherit', width: '100%', height: '100%',
+      minHeight: 0, minWidth: 0,
+      display: 'flex', flexDirection: 'column',
+    }}>
+      <div style={{ flex: 1, minHeight: 0, overflow: 'hidden', position: 'relative', background: '#EFEAE1' }}>
+        <StagedImg src={imgs[0]} productKey={product.id} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{
+          position: 'absolute', top: 6, left: 6,
+          background: accent.main, color: '#fff',
+          padding: '2px 6px', fontSize: 9, fontFamily: 'ui-monospace, monospace',
+          letterSpacing: 1, fontWeight: 700,
+        }}>#{String(window.PRODUCTS_DATA.findIndex(x => x.id === product.id) + 1).padStart(2, '0')}</div>
+      </div>
+      <div style={{ padding: big ? '8px 10px' : '6px 8px', borderTop: '1px solid #1F1B16', background: '#fff' }}>
+        <div style={{ fontSize: big ? 13 : 11, fontWeight: 600, lineHeight: 1.3, marginBottom: 2 }}>
+          {product.name}
+        </div>
+        <div style={{ fontSize: 10, color: '#6B6B6B', fontFamily: 'ui-monospace, monospace' }}>
+          ¥{product.price.toLocaleString()}
+        </div>
+      </div>
+    </button>
+  );
+}
+
+// Product list row
+function ProductRow({ p, accent, index, onClick }) {
+  const idx = window.PRODUCTS_DATA.findIndex(x => x.id === p.id) + 1;
+  const imgs = window.imagesFor(p);
+  return (
+    <button onClick={onClick} style={{
+      display: 'flex', gap: 12, width: '100%', padding: '12px 0',
+      borderBottom: '1px solid #D9CFBE', background: 'transparent',
+      border: 'none', borderBottom: '1px solid #D9CFBE',
+      textAlign: 'left', fontFamily: 'inherit', cursor: 'pointer',
+      alignItems: 'flex-start',
+    }}>
+      <div style={{
+        width: 88, height: 88, flexShrink: 0,
+        background: '#EFEAE1', border: '1px solid #D9CFBE',
+        overflow: 'hidden', position: 'relative',
+      }}>
+        <StagedImg src={imgs[0]} productKey={p.id} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{
+          position: 'absolute', top: 4, left: 4,
+          background: '#1F1B16', color: '#F5F0E6',
+          padding: '1px 5px', fontSize: 8, fontFamily: 'ui-monospace, monospace',
+          letterSpacing: 1, fontWeight: 700,
+        }}>#{String(idx).padStart(2, '0')}</div>
+      </div>
+      <div style={{ flex: 1, minWidth: 0, paddingTop: 2 }}>
+        <div style={{
+          fontSize: 10, fontFamily: 'ui-monospace, monospace',
+          color: accent.main, letterSpacing: 1, marginBottom: 3,
+        }}>
+          {p.stores.join(' · ')}
+        </div>
+        <div style={{ fontSize: 15, fontWeight: 600, lineHeight: 1.3, marginBottom: 4 }}>
+          {p.name}
+        </div>
+        <div style={{ fontSize: 11, color: '#6B6B6B', lineHeight: 1.5, marginBottom: 6,
+          display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {p.desc}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+            {(p.tags || []).slice(0, 2).map(t => (
+              <span key={t} style={{
+                fontSize: 9, padding: '1px 5px', background: accent.tint,
+                color: accent.deep, fontFamily: 'inherit',
+              }}>{t}</span>
+            ))}
+          </div>
+          <div style={{ fontSize: 13, fontFamily: 'ui-monospace, monospace', fontWeight: 700 }}>
+            ¥{p.price.toLocaleString()}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+window.HomeScreen = HomeScreen;
+
+// ===== screen-detail.jsx =====
+// Detail screen - article-style product detail
+function DetailScreen({ id, setView, accent, faves, toggleFave, tweaks }) {
+  const p = window.PRODUCTS_DATA.find(x => x.id === id);
+  if (!p) return null;
+  const column = (tweaks && tweaks.columns && tweaks.columns[id]) || null;
+  const idx = window.PRODUCTS_DATA.findIndex(x => x.id === id) + 1;
+  const isFave = faves.includes(p.id);
+  const cat = window.CATEGORIES.find(c => c.id === p.cat);
+
+  // Related: same category
+  const related = window.PRODUCTS_DATA.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 3);
+
+  return (
+    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif' }}>
+      {/* Sticky header */}
+      <div style={{
+        position: 'sticky', top: 0, zIndex: 10,
+        paddingTop: 54, background: '#F5F0E6',
+        borderBottom: '1px solid #1F1B16',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px' }}>
+          <button onClick={() => setView('home')} style={{
+            display: 'flex', alignItems: 'center', gap: 6, background: 'transparent',
+            border: 'none', padding: 6, cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, color: '#1F1B16',
+          }}>
+            <Icon name="back" size={18} /> 目次へ
+          </button>
+          <div style={{ fontSize: 10, fontFamily: 'ui-monospace, monospace', letterSpacing: 1.5, color: '#6B6B6B' }}>
+            #{String(idx).padStart(2, '0')} / {String(window.PRODUCTS_DATA.length).padStart(2, '0')}
+          </div>
+          <button onClick={() => toggleFave(p.id)} style={{
+            background: 'transparent', border: 'none', padding: 6, cursor: 'pointer',
+          }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill={isFave ? accent.main : 'none'} stroke={isFave ? accent.main : '#1F1B16'} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 3h12v19l-6-4-6 4z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Article header */}
+      <div style={{ padding: '24px 18px 10px' }}>
+        <div style={{
+          fontSize: 10, fontFamily: 'ui-monospace, monospace',
+          letterSpacing: 2, color: accent.main, fontWeight: 700, marginBottom: 4,
+        }}>
+          {cat.label.toUpperCase()} · CHAPTER {String(idx).padStart(2, '0')}
+        </div>
+        <h1 style={{
+          fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif',
+          fontSize: 28, fontWeight: 700, lineHeight: 1.2, letterSpacing: -0.5,
+          margin: '4px 0 12px',
+        }}>
+          {p.name}
+        </h1>
+        {/* Lead paragraph */}
+        <div style={{ fontSize: 13, lineHeight: 1.75, color: '#2B2620', marginBottom: 14,
+          borderLeft: `3px solid ${accent.main}`, paddingLeft: 12 }}>
+          {p.desc}
+        </div>
+      </div>
+
+      {/* Hero image — carousel if multiple */}
+      <ImageCarousel product={p} accent={accent} />
+
+      {/* Spec card - newspaper style */}
+      <div style={{ margin: '0 18px 22px', background: '#fff', border: '1px solid #1F1B16' }}>
+        <div style={{
+          padding: '6px 10px', borderBottom: '1px solid #1F1B16',
+          fontSize: 10, fontFamily: 'ui-monospace, monospace', letterSpacing: 2, fontWeight: 700,
+          background: '#1F1B16', color: '#F5F0E6',
+        }}>
+          価格・仕様 / SPEC
+        </div>
+        <div style={{ padding: '12px 14px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 10 }}>
+            <div style={{ fontSize: 28, fontFamily: 'ui-monospace, monospace', fontWeight: 700, letterSpacing: -1 }}>
+              ¥{p.price.toLocaleString()}
+            </div>
+            {p.since && <div style={{ fontSize: 10, color: '#6B6B6B', fontFamily: 'ui-monospace, monospace' }}>{p.since}</div>}
+          </div>
+          <SpecRow label="販売店舗" value={p.stores.join(' / ')} />
+          {p.material && <SpecRow label="素材" value={p.material} />}
+          {p.body && <SpecRow label="ボディ" value={p.body} />}
+          {p.size && <SpecRow label="サイズ" value={p.size} />}
+          {p.colors && <SpecRow label={`カラー (${p.colors.length})`} value={
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+              {p.colors.map(c => (
+                <span key={c} style={{ fontSize: 11, padding: '1px 6px', background: accent.tint, color: accent.deep }}>{c}</span>
+              ))}
+            </div>
+          } />}
+        </div>
+      </div>
+
+      {/* Story section */}
+      {p.story && (
+        <div style={{ padding: '0 18px 20px' }}>
+          <SectionHeader title="STORY" sub="このデザインの話" accent={accent} />
+          <div style={{ fontSize: 13, lineHeight: 1.85, color: '#2B2620', paddingLeft: 4 }}>
+            {p.story}
+          </div>
+        </div>
+      )}
+
+      {/* Customer service memo - callout */}
+      {p.memo && (
+        <div style={{ margin: '0 18px 20px', background: accent.tint, border: `1px solid ${accent.main}`, position: 'relative' }}>
+          <div style={{
+            position: 'absolute', top: -10, left: 14,
+            background: accent.main, color: '#fff',
+            padding: '3px 10px', fontSize: 10, fontFamily: 'ui-monospace, monospace',
+            letterSpacing: 2, fontWeight: 700,
+          }}>
+            💬 接客メモ
+          </div>
+          <div style={{ padding: '18px 14px 14px', fontSize: 13, lineHeight: 1.75, color: accent.deep }}>
+            {p.memo}
+          </div>
+        </div>
+      )}
+
+      {/* Staff knowledge */}
+      {p.staff && (
+        <div style={{ margin: '0 18px 24px', padding: '14px', background: '#1F1B16', color: '#F5F0E6', position: 'relative' }}>
+          <div style={{
+            fontSize: 10, fontFamily: 'ui-monospace, monospace', letterSpacing: 2, fontWeight: 700,
+            color: '#E8D16B', marginBottom: 8,
+          }}>
+            🤫 STAFF KNOWLEDGE · ここだけの話
+          </div>
+          <div style={{ fontSize: 12, lineHeight: 1.75, opacity: 0.9 }}>
+            {p.staff}
+          </div>
+        </div>
+      )}
+
+      {/* Character column - editable via tweaks */}
+      {column && column.text && (() => {
+        const CHARS = {
+          gamaoji:  { name: 'がまおじ',      img: 'characters/gamaoji.png' },
+          kaechan:  { name: 'カエちゃん',    img: 'characters/kaechan.png' },
+          yamadori: { name: 'ヤマドリ先輩',  img: 'characters/yamadori.png' },
+          kukio:    { name: 'クキオ',        img: 'characters/kukio.png' },
+        };
+        const ch = CHARS[column.character];
+        return (
+          <div style={{ margin: '0 18px 24px' }}>
+            <div style={{
+              fontSize: 10, fontFamily: 'ui-monospace, monospace', letterSpacing: 2,
+              color: '#6B6B6B', marginBottom: 8, fontWeight: 700,
+            }}>
+              COLUMN · ひとこと
+            </div>
+            <div style={{
+              display: 'flex', gap: 12, alignItems: 'flex-start',
+              background: '#fff', border: '1px solid #1F1B16', borderRadius: 4,
+              padding: '14px', boxShadow: '3px 3px 0 #1F1B16',
+            }}>
+              {ch && (() => {
+                const cs = (window.CHAR_STYLES && window.CHAR_STYLES[column.character]) || { objectPosition: 'center', scale: 0.9 };
+                return (
+                  <div style={{
+                    width: 72, height: 72, flexShrink: 0,
+                    background: accent.tint, borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    overflow: 'hidden',
+                  }}>
+                    <StagedImg src={ch.img} style={{
+                      width: (cs.scale * 100) + '%',
+                      height: (cs.scale * 100) + '%',
+                      objectFit: 'contain',
+                      objectPosition: cs.objectPosition,
+                      mixBlendMode: 'multiply',
+                    }} />
+                  </div>
+                );
+              })()}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                {ch && (
+                  <div style={{
+                    fontSize: 10, fontFamily: 'ui-monospace, monospace',
+                    letterSpacing: 1.5, color: accent.main, fontWeight: 700,
+                    marginBottom: 4,
+                  }}>
+                    {ch.name}
+                  </div>
+                )}
+                <div style={{
+                  fontSize: 13, lineHeight: 1.75, color: '#1F1B16',
+                  whiteSpace: 'pre-wrap',
+                }}>
+                  {column.text}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Tags */}
+      {p.tags && p.tags.length > 0 && (
+        <div style={{ padding: '0 18px 24px' }}>
+          <div style={{ fontSize: 10, fontFamily: 'ui-monospace, monospace', letterSpacing: 2, color: '#6B6B6B', marginBottom: 8 }}>
+            TAGS
+          </div>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {p.tags.map(t => (
+              <span key={t} style={{
+                fontSize: 12, padding: '4px 10px', border: '1px solid #1F1B16',
+                borderRadius: 999, background: '#fff',
+              }}>#{t}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Related */}
+      {related.length > 0 && (
+        <div style={{ padding: '20px 18px 0', borderTop: '2px solid #1F1B16', marginTop: 8 }}>
+          <SectionHeader title="RELATED" sub={`他の${cat.label}`} accent={accent} />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+            {related.map(r => (
+              <button key={r.id} onClick={() => { setView('detail'); window.__setSelId(r.id); }} style={{
+                background: '#fff', border: '1px solid #1F1B16', padding: 0,
+                cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit',
+              }}>
+                <div style={{ aspectRatio: '1/1', background: '#EFEAE1', overflow: 'hidden' }}>
+                  <StagedImg src={r.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ padding: '6px 8px', borderTop: '1px solid #1F1B16' }}>
+                  <div style={{ fontSize: 10, fontWeight: 600, lineHeight: 1.3,
+                    display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    {r.name}
+                  </div>
+                  <div style={{ fontSize: 9, color: '#6B6B6B', fontFamily: 'ui-monospace, monospace', marginTop: 2 }}>
+                    ¥{r.price.toLocaleString()}
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <div style={{ padding: '40px 18px 110px', textAlign: 'center' }}>
+        <div style={{ fontSize: 10, fontFamily: 'ui-monospace, monospace', letterSpacing: 3, color: '#6B6B6B' }}>
+          ─── END OF ARTICLE ───
+        </div>
+        <div style={{ marginTop: 16, fontSize: 11, color: '#6B6B6B' }}>
+          877 商品知識もりもりマガジン / {cat.label}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ImageCarousel({ product, accent }) {
+  const [idx, setIdx] = React.useState(0);
+  const [refreshKey, setRefreshKey] = React.useState(0);
+  // Re-compute images when assignments in localStorage change (e.g. gallery open in another tab)
+  React.useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key === '877-image-assignments') setRefreshKey(k => k + 1);
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+  const imgs = React.useMemo(() => window.imagesFor(product), [product.id, refreshKey]);
+  React.useEffect(() => { setIdx(0); }, [product.id]);
+  const count = imgs.length;
+  const cur = imgs[Math.min(idx, count - 1)] || product.image;
+  const prev = () => setIdx(i => (i - 1 + count) % count);
+  const next = () => setIdx(i => (i + 1) % count);
+
+  // Touch swipe
+  const touchX = React.useRef(null);
+  const onTouchStart = e => { touchX.current = e.touches[0].clientX; };
+  const onTouchEnd = e => {
+    if (touchX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    if (Math.abs(dx) > 40) { if (dx < 0) next(); else prev(); }
+    touchX.current = null;
+  };
+
+  return (
+    <div style={{ margin: '0 18px 14px', border: '1px solid #1F1B16', background: '#EFEAE1', position: 'relative' }}>
+      <div style={{ position: 'relative', aspectRatio: '1/1', overflow: 'hidden' }}
+           onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <StagedImg src={cur} productKey={product.id}
+          style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }} />
+        {count > 1 && (
+          <>
+            <button onClick={prev} aria-label="前" style={{
+              position: 'absolute', top: '50%', left: 8, transform: 'translateY(-50%)',
+              width: 34, height: 34, borderRadius: '50%',
+              background: 'rgba(31,27,22,0.7)', border: 'none', color: '#F5F0E6',
+              cursor: 'pointer', fontSize: 16, fontFamily: 'inherit',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>‹</button>
+            <button onClick={next} aria-label="次" style={{
+              position: 'absolute', top: '50%', right: 8, transform: 'translateY(-50%)',
+              width: 34, height: 34, borderRadius: '50%',
+              background: 'rgba(31,27,22,0.7)', border: 'none', color: '#F5F0E6',
+              cursor: 'pointer', fontSize: 16, fontFamily: 'inherit',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>›</button>
+            {/* Dots */}
+            <div style={{
+              position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)',
+              display: 'flex', gap: 5,
+              background: 'rgba(31,27,22,0.55)', padding: '5px 9px', borderRadius: 999,
+            }}>
+              {imgs.map((_, i) => (
+                <button key={i} onClick={() => setIdx(i)} style={{
+                  width: i === idx ? 16 : 5, height: 5, borderRadius: 3,
+                  background: i === idx ? '#F5F0E6' : 'rgba(245,240,230,0.5)',
+                  border: 'none', padding: 0, cursor: 'pointer',
+                  transition: 'width 0.2s, background 0.2s',
+                }} />
+              ))}
+            </div>
+            {/* Count indicator top-right */}
+            <div style={{
+              position: 'absolute', top: 8, right: 8,
+              background: 'rgba(31,27,22,0.7)', color: '#F5F0E6',
+              padding: '3px 8px', fontSize: 10, fontFamily: 'ui-monospace, monospace',
+              letterSpacing: 1, borderRadius: 10, fontWeight: 700,
+            }}>{idx + 1} / {count}</div>
+          </>
+        )}
+      </div>
+      <div style={{
+        position: 'absolute', bottom: 0, right: 0, background: '#1F1B16',
+        color: '#F5F0E6', padding: '4px 10px', fontSize: 9,
+        fontFamily: 'ui-monospace, monospace', letterSpacing: 2,
+      }}>
+        PHOTO · {product.id.toUpperCase()}
+      </div>
+    </div>
+  );
+}
+
+function SpecRow({ label, value }) {
+  return (
+    <div style={{ display: 'flex', gap: 10, padding: '6px 0', borderTop: '1px dashed #D9CFBE', fontSize: 12 }}>
+      <div style={{ width: 88, flexShrink: 0, color: '#6B6B6B', fontFamily: 'ui-monospace, monospace', fontSize: 10, paddingTop: 2, letterSpacing: 1 }}>
+        {label}
+      </div>
+      <div style={{ flex: 1, lineHeight: 1.55 }}>{value}</div>
+    </div>
+  );
+}
+
+function SectionHeader({ title, sub, accent }) {
+  return (
+    <div style={{ marginBottom: 12, display: 'flex', alignItems: 'baseline', gap: 10 }}>
+      <div style={{ fontSize: 13, fontFamily: 'ui-monospace, monospace', letterSpacing: 2, fontWeight: 700, color: accent.main }}>
+        ▊ {title}
+      </div>
+      <div style={{ fontSize: 11, color: '#6B6B6B' }}>{sub}</div>
+    </div>
+  );
+}
+
+window.DetailScreen = DetailScreen;
+
+// ===== screen-faves.jsx =====
+// Favorites / bookmarks screen
+function FavesScreen({ faves, toggleFave, setView, setSelectedId, accent }) {
+  const faveProducts = faves.map(id => window.PRODUCTS_DATA.find(p => p.id === id)).filter(Boolean);
+  return (
+    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: '"Hiragino Mincho ProN", "Yu Mincho", serif', paddingTop: 54 }}>
+      <div style={{ padding: '20px 18px 14px', borderBottom: '2px solid #1F1B16', margin: '0 18px' }}>
+        <div style={{ fontSize: 11, fontFamily: 'ui-monospace, monospace', letterSpacing: 3, color: accent.main, fontWeight: 700 }}>
+          BOOKMARKS
+        </div>
+        <h1 style={{ fontSize: 28, margin: '4px 0 2px', fontWeight: 700, letterSpacing: -0.5 }}>
+          しおりリスト
+        </h1>
+        <div style={{ fontSize: 11, color: '#6B6B6B' }}>気になる記事を挟んでおこう · {faveProducts.length}件</div>
+      </div>
+      <div style={{ padding: '14px 18px 110px' }}>
+        {faveProducts.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '40px 20px', color: '#6B6B6B' }}>
+            <div style={{ fontSize: 13, lineHeight: 1.7 }}>
+              まだしおりがありません。<br/>商品ページのしおりマークを押すと<br/>ここに溜まります。
+            </div>
+          </div>
+        ) : faveProducts.map(p => (
+          <ProductRow key={p.id} p={p} accent={accent}
+            onClick={() => { setSelectedId(p.id); setView('detail'); }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+window.FavesScreen = FavesScreen;
+
+// ===== screen-about.jsx =====
+// Column pages: 877の商品について / Tシャツ前提知識 / 手ぬぐい前提知識
+// Character columns (bubble) at the end are editable via tweaks.columns
+// using keys '__about', '__tshirt', '__tenugui'.
+
+const COLUMN_PAGES = {
+  __about: {
+    kicker: 'ABOUT',
+    title: '877の商品について',
+    pageLabel: '— ABOUT —',
+    mascot: 'characters/gamaoji.png',
+    sections: [
+      {
+        num: '01',
+        heading: '877の商品は、ぜんぶオリジナル。',
+        body: [
+          '877と877Standの商品は、すべてオリジナル商品です。運営元の株式会社ターバンは、つくば市内に事務所を構えるデザイン会社でもあり、商品デザインは社内デザイナーの小林敦子を中心に制作しています。',
+          '商品は基本的に877・877Standで販売しており、ここでしか出会えないものがほとんど。一部商品は自社オンラインショップやつくばLOFTでも取り扱っています。新作は不定期で登場します。',
+        ],
+      },
+      {
+        num: '02',
+        heading: '商品に「紫」が使われている理由',
+        body: [
+          '筑波山は、朝日や夕日を受けると山肌が紫色に見えることから、「紫峰（しほう）」という別名でも親しまれています。877ではこの背景を大切にし、商品やデザインの中に紫を意識的に取り入れています。',
+          'ちなみに、筑波山の登山道のトレイルサインにも紫が使われています。',
+        ],
+      },
+      {
+        num: '03',
+        heading: '商品ラインナップについて',
+        body: [
+          '877では全ラインナップを展開しています。877Standは山頂にある店舗のため、厳選した一部商品のみの販売となっています。',
+          '877Standでお客様をご案内する際は、「中腹の877ではさらに豊富な商品を取り揃えています」とお伝えするのがおすすめです。気になる商品が見つからなかったときの一言としても使えます。',
+        ],
+      },
+    ],
+  },
+  __tshirt: {
+    kicker: 'T-SHIRTS',
+    title: 'Tシャツについて',
+    pageLabel: '— T-SHIRTS —',
+    mascot: 'characters/gamaoji.png',
+    sections: [
+      {
+        num: '01',
+        heading: '💡 Tシャツの素材について',
+        blocks: [
+          { sub: '877のTシャツがドライ素材な理由',
+            body: '877は山にあるお店のため、登山客からのニーズに応えてドライ素材のTシャツを中心に展開しています。山は天候が変わりやすく登山中は汗をかくため、速乾性の高いドライ素材は不可欠です。' },
+          { sub: 'ドライ素材（ポリエステル）の特徴',
+            body: 'ポリエステルなどの合成繊維を使用し、汗を素早く吸収・拡散して乾燥させる機能に優れています。汗をかいてもサラサラした着心地が続き、洗濯後も短時間で乾くのが特徴です。\n877のTシャツはお土産でありながら日常にも馴染むデザインを意識しているため、「おしゃれに着られるドライ素材T」という点が商品価値となっています。' },
+          { sub: 'サイズ感について',
+            body: 'Tシャツのサイズ感は、日本のメンズサイズ基準です。店頭では男女兼用表示になっているので、女性のお客様には「いつものサイズから1サイズ下がおすすめ」とお伝えしましょう。（普段LならM、MならS）\n外国のお客様には「ジャパニーズメンズサイズ」と伝えると、サイズ感が伝わりやすいです。海外サイズか日本サイズか確認したい方も多いので、先回りして伝えるのがベターです。\nボディは「ユナイテッドアスレ（United Athle）」か「グリマー（Glimmer）」を使用しています。同じサイズ表記でも、アスレは若干タイト、グリマーは若干ゆったりめの作りになっています。' },
+          { sub: '値段について（スタッフ知識）',
+            note: 'お客様への共有はNGですが、理由だけ知っておいてください。',
+            body: 'プリント箇所が多いほど値段が上がる傾向があります。また、ロンTやスウェットはボディ自体のコストが高いため、プリントTより価格が高くなっています。\nお客様に「なんでこれは高いの？」と聞かれた場合は、「デザインやボディの素材によって価格が変わります」とお伝えするのがおすすめです。' },
+          { sub: '綿素材について',
+            body: '少数ではありますが綿素材の需要も存在します。肌触りがよく洗濯のたびに風合いが増す、綿ならではの着心地の良さがあるため、877でも一部商品で綿素材のTシャツを展開しています。' },
+        ],
+      },
+    ],
+    table: {
+      title: 'Tシャツ｜各ラインナップのボディ一覧',
+      columns: ['ユナイテッドアスレ', 'グリマー'],
+      rows: [
+        ['等高線Tシャツ',       '877Stand Tシャツ'],
+        ['犬山脈Tシャツ',       '877 Tシャツ'],
+        ['うりぼーTシャツ',     'ハイキングマTシャツ'],
+        ['スーベニアTシャツ',   'ガーディアンズTシャツ'],
+        ['バナくんTシャツ',     ''],
+      ],
+    },
+  },
+  __tenugui: {
+    kicker: 'TENUGUI',
+    title: '手ぬぐいについて',
+    pageLabel: '— TENUGUI —',
+    mascot: 'characters/gamaoji.png',
+    diagram: 'tenassen',
+    sections: [
+      {
+        num: '01',
+        heading: '💡 手ぬぐいについて',
+        blocks: [
+          { sub: '手ぬぐいの染色について',
+            body: '877の手ぬぐいはすべて「手捺染（てなっせん）」という技法で染色しています。1色ごとに型を作り、色糊をスキージーと呼ばれるへらで生地に刷り込んでいく製法で、裏面まで色がしっかり通っているのが特徴です。' },
+          { sub: '接客メモ',
+            body: '染め方について質問されたときは、「1色ずつ型を作って、へらで色糊を生地に刷り込んでいく手捺染という技法で染めています。裏まで色が通っているのもその特徴なんですよ」とお伝えするとわかりやすいです。' },
+          { sub: '使い方について',
+            body: '手ぬぐい・バンダナともに、首や頭に巻いての日よけ、ハンカチ代わり、バッグへのアクセサリー使い、お弁当などを包む風呂敷代わりなど、幅広く使えます。\n手ぬぐいはさらに、山で怪我をした際の包帯代わりにもなります。日帰り温泉のお供にも。登山中のお客様への一言として「アウトドアでの万能アイテムですよ」と伝えると響きやすいです。' },
+        ],
+      },
+    ],
+  },
+};
+
+window.COLUMN_PAGES = COLUMN_PAGES;
+
+// ─────────────────────────────────────────────
+// 手捺染（てなっせん）のしくみを示す3コマSVG図
+// ①道具 → ②染める(手が入る) → ③蒸して固着
+// ─────────────────────────────────────────────
+function TenassenDiagram({ accent, serif, mono }) {
+  const ink = '#1F1B16';
+  const strokeW = 1.6;
+
+  const steps = [
+    {
+      n: '①',
+      title: '道具',
+      caption: 'スキージー（ヘラ）と型を使います。型は1色につき1枚。',
+      svg: (
+        <svg viewBox="0 0 120 100" style={{ width: '100%', height: 'auto', display: 'block' }}>
+          {/* squeegee (upper) */}
+          <g>
+            {/* handle */}
+            <rect x="36" y="14" width="56" height="6" rx="1" fill="none" stroke={ink} strokeWidth={strokeW}/>
+            {/* blade */}
+            <polygon points="36,20 92,20 86,32 42,32" fill="none" stroke={ink} strokeWidth={strokeW}/>
+          </g>
+          {/* label */}
+          <text x="97" y="25" fontFamily={serif} fontSize="7" fill={ink}>スキージー</text>
+          {/* frame (lower, angled) */}
+          <g transform="translate(8,46)">
+            <polygon points="4,18 92,18 100,40 12,40" fill="none" stroke={ink} strokeWidth={strokeW}/>
+            {/* pattern holes */}
+            <g fill={accent.main} opacity="0.9">
+              <circle cx="22" cy="28" r="2.3"/>
+              <circle cx="40" cy="28" r="2.3"/>
+              <circle cx="58" cy="28" r="2.3"/>
+              <circle cx="76" cy="28" r="2.3"/>
+            </g>
+          </g>
+          <text x="58" y="96" textAnchor="middle" fontFamily={serif} fontSize="7" fill={ink}>型</text>
+        </svg>
+      ),
+    },
+    {
+      n: '②',
+      title: '染める',
+      caption: '手ぬぐいを1枚ずつ、型の上から色糊を刷り込みます。',
+      svg: (
+        <svg viewBox="0 0 120 100" style={{ width: '100%', height: 'auto', display: 'block' }}>
+          {/* fabric base */}
+          <rect x="8" y="62" width="104" height="22" fill={accent.tint} stroke={ink} strokeWidth={strokeW}/>
+          {/* printed pattern on fabric */}
+          <g fill={accent.main}>
+            <circle cx="22" cy="73" r="2.5"/>
+            <circle cx="36" cy="73" r="2.5"/>
+          </g>
+          {/* frame on fabric */}
+          <rect x="50" y="54" width="58" height="18" fill="#FAF5E9" stroke={ink} strokeWidth={strokeW}/>
+          <g fill={accent.main} opacity="0.35">
+            <circle cx="62" cy="63" r="2.3"/>
+            <circle cx="76" cy="63" r="2.3"/>
+            <circle cx="90" cy="63" r="2.3"/>
+          </g>
+          {/* squeegee on frame */}
+          <rect x="66" y="38" width="30" height="5" rx="1" fill={ink}/>
+          <polygon points="66,43 96,43 92,52 70,52" fill={accent.deep} stroke={ink} strokeWidth={strokeW}/>
+          {/* hands pressing squeegee */}
+          <g fill="#FAF5E9" stroke={ink} strokeWidth={strokeW} strokeLinejoin="round">
+            {/* left hand */}
+            <path d="M 48 30 Q 58 24 68 30 L 72 40 Q 70 46 64 46 L 54 46 Q 48 44 46 38 Z"/>
+            {/* right hand */}
+            <path d="M 88 30 Q 98 26 108 34 L 106 44 Q 102 48 94 46 L 86 44 Q 84 38 86 34 Z"/>
+          </g>
+          {/* motion arrow */}
+          <g stroke={ink} strokeWidth={strokeW} fill="none" strokeLinecap="round">
+            <path d="M 22 30 L 40 30"/>
+            <path d="M 36 26 L 40 30 L 36 34"/>
+          </g>
+        </svg>
+      ),
+    },
+    {
+      n: '③',
+      title: '加熱・固着',
+      caption: '蒸して色を定着させ、洗って余分な染料を落とします。',
+      svg: (
+        <svg viewBox="0 0 120 100" style={{ width: '100%', height: 'auto', display: 'block' }}>
+          {/* steam cabinet */}
+          <rect x="28" y="26" width="64" height="60" fill="none" stroke={ink} strokeWidth={strokeW}/>
+          {/* door left */}
+          <line x1="28" y1="26" x2="28" y2="86" stroke={ink} strokeWidth={strokeW}/>
+          <g stroke={ink} strokeWidth="1" fill="none">
+            <line x1="20" y1="30" x2="28" y2="30"/>
+            <line x1="20" y1="42" x2="28" y2="42"/>
+            <line x1="20" y1="54" x2="28" y2="54"/>
+            <line x1="20" y1="66" x2="28" y2="66"/>
+            <line x1="20" y1="78" x2="28" y2="78"/>
+          </g>
+          <line x1="20" y1="26" x2="20" y2="86" stroke={ink} strokeWidth={strokeW}/>
+          {/* door right */}
+          <g stroke={ink} strokeWidth="1" fill="none">
+            <line x1="92" y1="30" x2="100" y2="30"/>
+            <line x1="92" y1="42" x2="100" y2="42"/>
+            <line x1="92" y1="54" x2="100" y2="54"/>
+            <line x1="92" y1="66" x2="100" y2="66"/>
+            <line x1="92" y1="78" x2="100" y2="78"/>
+          </g>
+          <line x1="100" y1="26" x2="100" y2="86" stroke={ink} strokeWidth={strokeW}/>
+          {/* hanging rod */}
+          <line x1="34" y1="32" x2="86" y2="32" stroke={ink} strokeWidth={strokeW}/>
+          {/* hanging fabric (draped) */}
+          <path d="M 44 34 L 44 74 Q 60 82 76 74 L 76 34 Z"
+                fill={accent.main} stroke={ink} strokeWidth={strokeW} strokeLinejoin="round"/>
+          {/* clips */}
+          <circle cx="48" cy="33" r="1.3" fill={ink}/>
+          <circle cx="60" cy="33" r="1.3" fill={ink}/>
+          <circle cx="72" cy="33" r="1.3" fill={ink}/>
+          {/* pattern on fabric */}
+          <g fill={accent.tint}>
+            <circle cx="54" cy="50" r="2"/>
+            <circle cx="66" cy="50" r="2"/>
+            <circle cx="54" cy="62" r="2"/>
+            <circle cx="66" cy="62" r="2"/>
+          </g>
+          {/* steam */}
+          <g stroke={ink} strokeWidth={strokeW} fill="none" strokeLinecap="round">
+            <path d="M 46 22 Q 50 16 46 10"/>
+            <path d="M 58 20 Q 62 12 58 6"/>
+            <path d="M 70 22 Q 74 16 70 10"/>
+          </g>
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      {steps.map((s) => (
+        <div key={s.n} style={{
+          display: 'grid',
+          gridTemplateColumns: '88px 1fr',
+          gap: 12, alignItems: 'flex-start',
+        }}>
+          <div style={{
+            background: '#FAF5E9',
+            border: '1px solid ' + ink,
+            borderRadius: 3,
+            padding: '8px 6px',
+          }}>
+            {s.svg}
+          </div>
+          <div>
+            <div style={{
+              display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 4,
+            }}>
+              <span style={{
+                fontSize: 18, fontWeight: 700, color: accent.main,
+                fontFamily: serif, lineHeight: 1,
+              }}>{s.n}</span>
+              <span style={{
+                fontSize: 13, fontWeight: 700, fontFamily: serif, lineHeight: 1.2,
+              }}>{s.title}</span>
+            </div>
+            <div style={{ fontSize: 12, lineHeight: 1.6, color: ink, fontFamily: serif }}>
+              {s.caption}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+window.TenassenDiagram = TenassenDiagram;
+
+function ColumnPageScreen({ setView, accent, tweaks, pageId = '__about' }) {
+  const serif = '"Hiragino Mincho ProN", "Yu Mincho", serif';
+  const mono = 'ui-monospace, monospace';
+
+  const page = COLUMN_PAGES[pageId] || COLUMN_PAGES.__about;
+
+  // Optional hero image assigned via gallery (keyed by pageId)
+  const pageImages = window.imagesFor({ id: pageId });
+  const heroImg = pageImages[0];
+
+  // Character column (end of page, editable via tweaks)
+  const column = (tweaks && tweaks.columns && tweaks.columns[pageId]) || null;
+  const CHARS = {
+    gamaoji:  { name: 'がまおじ',     img: 'characters/gamaoji.png' },
+    kaechan:  { name: 'カエちゃん',   img: 'characters/kaechan.png' },
+    yamadori: { name: 'ヤマドリ先輩', img: 'characters/yamadori.png' },
+    kukio:    { name: 'クキオ',       img: 'characters/kukio.png' },
+  };
+
+  return (
+    <div style={{ background: '#F5F0E6', minHeight: '100%', color: '#1F1B16', fontFamily: serif, paddingTop: 54, paddingBottom: 110 }}>
+      {/* Masthead */}
+      <div style={{ padding: '20px 18px 14px', borderBottom: '2px solid #1F1B16', margin: '0 18px', position: 'relative' }}>
+        <div style={{ fontSize: 11, fontFamily: mono, letterSpacing: 3, color: accent.main, fontWeight: 700 }}>
+          {page.kicker}
+        </div>
+        <h1 style={{ fontSize: 30, margin: '4px 0 4px', fontWeight: 700, letterSpacing: -0.5, lineHeight: 1.15 }}>
+          {page.title}
+        </h1>
+        {page.placeholder && (
+          <div style={{ fontSize: 10, fontFamily: mono, letterSpacing: 1.5, color: '#A89A82', marginTop: 4 }}>
+            本文原稿差し込み予定
+          </div>
+        )}
+        {page.mascot && (
+          <div style={{ position: 'absolute', top: 14, right: 10, width: 68, height: 68 }}>
+            <StagedImg src={page.mascot} style={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: 'multiply' }} />
+          </div>
+        )}
+      </div>
+
+      {/* Sections */}
+      <div style={{ padding: '22px 18px 0' }}>
+        {page.sections.map((s) => (
+          <div key={s.num} style={{ marginBottom: 26 }}>
+            <div style={{
+              display: 'flex', alignItems: 'flex-end', gap: 12,
+              paddingBottom: 8, borderBottom: '1px solid #1F1B16',
+              marginBottom: 14,
+            }}>
+              <div style={{
+                fontFamily: mono, fontSize: 34, fontWeight: 700,
+                lineHeight: 0.9, color: accent.main, letterSpacing: -1,
+              }}>
+                {s.num}
+              </div>
+              <div style={{ flex: 1, height: 1, background: '#1F1B16', marginBottom: 6 }} />
+            </div>
+            <h2 style={{ fontSize: 19, fontWeight: 700, margin: '0 0 14px', lineHeight: 1.4, letterSpacing: -0.3 }}>
+              {s.heading}
+            </h2>
+            {s.blocks ? (
+              <div style={{ fontSize: 13, lineHeight: 1.95, color: '#1F1B16' }}>
+                {s.blocks.map((blk, i) => (
+                  <div key={i} style={{ marginBottom: i === s.blocks.length - 1 ? 0 : 18 }}>
+                    <h3 style={{
+                      fontSize: 14, fontWeight: 700, margin: '0 0 6px',
+                      lineHeight: 1.5, letterSpacing: -0.2,
+                    }}>
+                      {blk.sub}
+                    </h3>
+                    {blk.note && (
+                      <div style={{
+                        fontSize: 11, color: accent.main,
+                        background: accent.tint,
+                        borderLeft: '3px solid ' + accent.main,
+                        padding: '6px 10px', borderRadius: 2,
+                        margin: '0 0 8px', lineHeight: 1.55, fontWeight: 500,
+                      }}>
+                        ※ {blk.note}
+                      </div>
+                    )}
+                    <p style={{ margin: 0, whiteSpace: 'pre-line' }}>{blk.body}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ fontSize: 13, lineHeight: 1.95, color: '#1F1B16' }}>
+                {s.body.map((para, i) => (
+                  <p key={i} style={{ margin: i === 0 ? '0 0 14px' : '0 0 0' }}>{para}</p>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Photo or Table or Diagram */}
+      {page.diagram === 'tenassen' ? (
+        <div style={{ padding: '6px 18px 0' }}>
+          <div style={{
+            fontSize: 12, fontFamily: mono, letterSpacing: 1.5,
+            color: '#1F1B16', fontWeight: 700, marginBottom: 10,
+          }}>
+            — 手捺染のしくみ —
+          </div>
+          <div style={{
+            border: '1px solid #1F1B16', borderRadius: 4,
+            boxShadow: '3px 3px 0 #1F1B16',
+            background: '#fff', padding: '18px 14px',
+          }}>
+            <TenassenDiagram accent={accent} serif={serif} mono={mono} />
+          </div>
+        </div>
+      ) : page.table ? (
+        <div style={{ padding: '6px 18px 0' }}>
+          <div style={{
+            fontSize: 12, fontFamily: mono, letterSpacing: 1.5,
+            color: '#1F1B16', fontWeight: 700, marginBottom: 8,
+          }}>
+            — {page.table.title} —
+          </div>
+          <div style={{
+            border: '1px solid #1F1B16', borderRadius: 4,
+            boxShadow: '3px 3px 0 #1F1B16',
+            background: '#fff', overflow: 'hidden',
+          }}>
+            <table style={{
+              width: '100%', borderCollapse: 'collapse',
+              fontSize: 12, lineHeight: 1.4,
+            }}>
+              <thead>
+                <tr>
+                  {page.table.columns.map((c, i) => (
+                    <th key={i} style={{
+                      background: accent.tint,
+                      borderBottom: '1px solid #1F1B16',
+                      borderRight: i < page.table.columns.length - 1 ? '1px solid #1F1B16' : 'none',
+                      padding: '10px 8px', fontWeight: 700,
+                      textAlign: 'center', fontFamily: serif,
+                    }}>{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {page.table.rows.map((row, ri) => (
+                  <tr key={ri}>
+                    {row.map((cell, ci) => (
+                      <td key={ci} style={{
+                        borderBottom: ri < page.table.rows.length - 1 ? '1px solid #D9CFB8' : 'none',
+                        borderRight: ci < row.length - 1 ? '1px solid #D9CFB8' : 'none',
+                        padding: '10px 10px',
+                        textAlign: 'left', fontFamily: serif,
+                        color: cell ? '#1F1B16' : 'transparent',
+                      }}>{cell || '—'}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : (
+        <div style={{ padding: '6px 18px 0' }}>
+          <div style={{
+            aspectRatio: '4/3', background: '#E5DCC7',
+            border: '1px solid #1F1B16', borderRadius: 4,
+            overflow: 'hidden', position: 'relative',
+            boxShadow: '3px 3px 0 #1F1B16',
+          }}>
+            {heroImg ? (
+              <StagedImg src={heroImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <div style={{
+                width: '100%', height: '100%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: mono, fontSize: 11, letterSpacing: 2, color: '#A89A82',
+              }}>
+                PHOTO — 未設定
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Character column (editable) */}
+      {column && column.text && (() => {
+        const ch = CHARS[column.character];
+        return (
+          <div style={{ padding: '22px 18px 0' }}>
+            <div style={{
+              fontSize: 10, fontFamily: mono, letterSpacing: 2,
+              color: '#6B6B6B', marginBottom: 8, fontWeight: 700,
+            }}>
+              COLUMN · ひとこと
+            </div>
+            <div style={{
+              display: 'flex', gap: 12, alignItems: 'flex-start',
+              background: '#fff', border: '1px solid #1F1B16', borderRadius: 4,
+              padding: '14px', boxShadow: '3px 3px 0 #1F1B16',
+            }}>
+              {ch && (() => {
+                const cs = (window.CHAR_STYLES && window.CHAR_STYLES[column.character]) || { objectPosition: 'center', scale: 0.9 };
+                return (
+                  <div style={{
+                    width: 72, height: 72, flexShrink: 0,
+                    background: accent.tint, borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    overflow: 'hidden',
+                  }}>
+                    <StagedImg src={ch.img} style={{
+                      width: (cs.scale * 100) + '%',
+                      height: (cs.scale * 100) + '%',
+                      objectFit: 'contain',
+                      objectPosition: cs.objectPosition,
+                      mixBlendMode: 'multiply',
+                    }} />
+                  </div>
+                );
+              })()}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                {ch && (
+                  <div style={{
+                    fontSize: 10, fontFamily: mono, letterSpacing: 1.5,
+                    color: accent.main, fontWeight: 700, marginBottom: 4,
+                  }}>
+                    {ch.name}
+                  </div>
+                )}
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: '#1F1B16', whiteSpace: 'pre-wrap' }}>
+                  {column.text}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* CTA */}
+      <div style={{ padding: '20px 18px 0' }}>
+        <button
+          onClick={() => setView('home')}
+          style={{
+            width: '100%', padding: '14px 16px',
+            background: '#1F1B16', color: '#fff',
+            border: '1px solid #1F1B16', borderRadius: 4,
+            fontFamily: 'inherit', fontSize: 14, fontWeight: 700,
+            letterSpacing: 0.5, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            boxShadow: '3px 3px 0 ' + accent.main,
+          }}
+        >
+          <Icon name="back" size={14} color="#fff" />
+          マガジンへ戻る
+        </button>
+      </div>
+
+      {/* Page number */}
+      <div style={{ textAlign: 'center', padding: '28px 0 0', fontSize: 10, fontFamily: mono, color: '#6B6B6B', letterSpacing: 2 }}>
+        {page.pageLabel}
+      </div>
+    </div>
+  );
+}
+
+window.ColumnPageScreen = ColumnPageScreen;
+
+// Legacy wrapper: AboutScreen = ColumnPageScreen with pageId='__about'
+function AboutScreen(props) {
+  return React.createElement(ColumnPageScreen, { ...props, pageId: '__about' });
+}
+window.AboutScreen = AboutScreen;
+
+
+</script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+// Semaphore-based image loader to avoid rate-limiting avalanche
+window.__imgQueue = window.__imgQueue || [];
+window.__imgActive = 0;
+window.__imgCache = window.__imgCache || {};
+const MAX_CONCURRENT = 2;
+
+async function loadImageBlob(src, attempt = 0) {
+  try {
+    // Append auth token from page URL to bypass 401 on serve endpoint
+    const token = new URLSearchParams(location.search).get('t');
+    const url = token ? src + (src.includes('?') ? '&' : '?') + 't=' + token : src;
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('status ' + r.status);
+    const b = await r.blob();
+    return URL.createObjectURL(b);
+  } catch (e) {
+    if (attempt < 3) {
+      await new Promise(res => setTimeout(res, 400 + attempt * 500));
+      return loadImageBlob(src, attempt + 1);
+    }
+    return null;
+  }
+}
+
+function processImgQueue() {
+  while (window.__imgActive < MAX_CONCURRENT && window.__imgQueue.length > 0) {
+    const { src, resolve } = window.__imgQueue.shift();
+    window.__imgActive++;
+    loadImageBlob(src).then(url => {
+      window.__imgActive--;
+      window.__imgCache[src] = url;
+      resolve(url);
+      processImgQueue();
+    });
+  }
+}
+
+function queueImageLoad(src) {
+  if (window.__imgCache[src] !== undefined) return Promise.resolve(window.__imgCache[src]);
+  return new Promise(resolve => {
+    window.__imgQueue.push({ src, resolve });
+    processImgQueue();
+  });
+}
+
+function StagedImg({ src, style, className, productKey }) {
+  const [loaded, setLoaded] = React.useState(() => window.__imgCache[src] || null);
+  const [failed, setFailed] = React.useState(false);
+  // productKey lets Tweaks override object-position per product
+  const key = productKey || (src.startsWith('products/') ? src.replace('products/', '').replace(/\.\w+$/, '') : null);
+  const [tick, setTick] = React.useState(0);
+  React.useEffect(() => {
+    const onPos = () => setTick(t => t + 1);
+    window.addEventListener('__imgPosChanged', onPos);
+    return () => window.removeEventListener('__imgPosChanged', onPos);
+  }, []);
+  const pos = key && window.__imgPositions && window.__imgPositions[key];
+  const posStyle = pos ? { objectPosition: `${pos.x}% ${pos.y}%` } : null;
+  React.useEffect(() => {
+    let cancelled = false;
+    if (window.__imgCache[src]) { setLoaded(window.__imgCache[src]); return; }
+    queueImageLoad(src).then(result => {
+      if (cancelled) return;
+      if (result) setLoaded(result); else setFailed(true);
+    });
+    return () => { cancelled = true; };
+  }, [src]);
+  if (failed) return <div style={style} className={className} />;
+  if (!loaded) return <div style={{ ...style, background: '#EFEAE1' }} className={className} />;
+  return <img src={loaded} style={{ display: 'block', ...style, ...posStyle }} className={className} data-tick={tick} />;
+}
+window.StagedImg = StagedImg;
+
+function TabBar({ view, setView, accent }) {
+  const tabs = [
+    { id: 'home', label: '目次', icon: 'book' },
+    { id: 'faves', label: 'しおり', icon: 'bookmark' },
+  ];
+  return (
+    <div style={{
+      position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 40,
+      background: 'rgba(245,240,230,0.92)',
+      backdropFilter: 'blur(20px) saturate(180%)',
+      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+      borderTop: '1px solid #1F1B16',
+      paddingBottom: 24, paddingTop: 6,
+      display: 'flex', justifyContent: 'space-around',
+    }}>
+      {tabs.map(t => {
+        const active = view === t.id || (view === 'detail' && t.id === 'home');
+        return (
+          <button key={t.id} onClick={() => setView(t.id)} style={{
+            background: 'transparent', border: 'none', padding: '8px 20px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
+            cursor: 'pointer', color: active ? accent.main : '#6B6B6B',
+          }}>
+            {React.createElement(window.Icon, { name: t.icon, size: 22, color: active ? accent.main : '#6B6B6B', stroke: active ? 2 : 1.5 })}
+            <span style={{ fontSize: 10, fontWeight: active ? 700 : 500, letterSpacing: 1 }}>{t.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function TweaksPanel({ tweaks, setTweaks, view, selectedId, setSelectedId, setView }) {
+  const products = window.PRODUCTS_DATA || [];
+  // Auto-pick: currently viewed product, else first product
+  const [editingId, setEditingId] = React.useState(() =>
+    (view === 'detail' && selectedId) ? selectedId : (products[0]?.id || null)
+  );
+  // Column editor target (can be product id or '__about' / '__tshirt' / '__tenugui')
+  const [colTarget, setColTarget] = React.useState(null);
+  // When view changes to a column page, auto-follow
+  React.useEffect(() => {
+    if (view === 'about') setColTarget('__about');
+    else if (view === 'column-tshirt') setColTarget('__tshirt');
+    else if (view === 'column-tenugui') setColTarget('__tenugui');
+    else if (view === 'detail' && selectedId) setColTarget(selectedId);
+  }, [view, selectedId]);
+  React.useEffect(() => {
+    if (view === 'detail' && selectedId) setEditingId(selectedId);
+  }, [view, selectedId]);
+
+  const positions = tweaks.imagePositions || {};
+  const pos = positions[editingId] || { x: 50, y: 50 };
+  const product = products.find(p => p.id === editingId);
+
+  const setPos = (x, y) => {
+    const next = { ...positions, [editingId]: { x, y } };
+    setTweaks({ ...tweaks, imagePositions: next });
+  };
+  const resetPos = () => {
+    const next = { ...positions };
+    delete next[editingId];
+    setTweaks({ ...tweaks, imagePositions: next });
+  };
+  const jumpToProduct = () => {
+    setSelectedId(editingId);
+    setView('detail');
+  };
+
+  return (
+    <div className="tweak-panel" style={{
+      position: 'fixed', right: 20, bottom: 20, zIndex: 9999,
+      width: 300, maxHeight: '85vh', overflowY: 'auto',
+      background: '#1F1B16', color: '#F5F0E6',
+      borderRadius: 12, padding: 16, fontSize: 12,
+      boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: 2, fontWeight: 700 }}>
+          ⚙ TWEAKS
+        </div>
+      </div>
+
+      <TweakLabel>アクセントカラー</TweakLabel>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+        {Object.entries(window.ACCENTS).map(([k, v]) => (
+          <button key={k} onClick={() => setTweaks({ ...tweaks, accent: k })} style={{
+            width: 32, height: 32, borderRadius: 6, background: v.main,
+            border: tweaks.accent === k ? '2px solid #F5F0E6' : '2px solid transparent',
+            cursor: 'pointer', padding: 0,
+          }} title={k} />
+        ))}
+      </div>
+
+      {/* Image trim section */}
+      <div style={{ paddingTop: 10, marginTop: 4, borderTop: '1px solid #3A332A' }}>
+        <TweakLabel>画像トリミング</TweakLabel>
+
+        <select
+          value={editingId || ''}
+          onChange={e => setEditingId(e.target.value)}
+          style={{
+            width: '100%', padding: '7px 8px', fontSize: 12,
+            background: '#2A241C', color: '#F5F0E6',
+            border: '1px solid #3A332A', borderRadius: 4,
+            fontFamily: 'inherit', marginBottom: 10, cursor: 'pointer',
+          }}
+        >
+          {products.map(p => (
+            <option key={p.id} value={p.id}>
+              {positions[p.id] ? '●' : '○'} {p.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Preview */}
+        {product && (() => {
+          const imgs = window.imagesFor(product);
+          const src = imgs[0] || product.image;
+          return (
+          <div style={{ marginBottom: 10 }}>
+            <div style={{
+              width: '100%', aspectRatio: '16 / 10',
+              background: '#EFEAE1', border: '1px solid #3A332A',
+              overflow: 'hidden', borderRadius: 4, position: 'relative',
+            }}>
+              <img
+                src={window.__imgCache && window.__imgCache[src] || ''}
+                style={{
+                  width: '100%', height: '100%', objectFit: 'cover',
+                  objectPosition: `${pos.x}% ${pos.y}%`,
+                  display: 'block',
+                }}
+              />
+              {/* Crosshair */}
+              <div style={{
+                position: 'absolute', left: `${pos.x}%`, top: `${pos.y}%`,
+                width: 14, height: 14, marginLeft: -7, marginTop: -7,
+                border: '2px solid #fff', borderRadius: '50%',
+                boxShadow: '0 0 0 1px rgba(0,0,0,0.5)', pointerEvents: 'none',
+              }} />
+            </div>
+          </div>
+        ); })()}
+
+        <TweakLabel>横位置 X — {pos.x}%</TweakLabel>
+        <input type="range" min="0" max="100" value={pos.x}
+          onChange={e => setPos(+e.target.value, pos.y)}
+          style={{ width: '100%', marginBottom: 10, accentColor: '#F5F0E6' }} />
+
+        <TweakLabel>縦位置 Y — {pos.y}%</TweakLabel>
+        <input type="range" min="0" max="100" value={pos.y}
+          onChange={e => setPos(pos.x, +e.target.value)}
+          style={{ width: '100%', marginBottom: 10, accentColor: '#F5F0E6' }} />
+
+        <div style={{ display: 'flex', gap: 6 }}>
+          <button onClick={jumpToProduct} style={{
+            flex: 1, padding: '6px 8px', fontSize: 10,
+            background: 'transparent', color: '#F5F0E6',
+            border: '1px solid #F5F0E6', borderRadius: 4, cursor: 'pointer',
+            fontFamily: 'inherit',
+          }}>詳細を開く</button>
+          <button onClick={resetPos} style={{
+            flex: 1, padding: '6px 8px', fontSize: 10,
+            background: 'transparent', color: '#F5F0E6',
+            border: '1px solid #3A332A', borderRadius: 4, cursor: 'pointer',
+            fontFamily: 'inherit',
+          }}>リセット</button>
+        </div>
+      </div>
+
+      <div style={{ fontSize: 10, color: '#A89F94', lineHeight: 1.5, marginTop: 14, paddingTop: 10, borderTop: '1px solid #3A332A' }}>
+        画像の見える部分をスライダーで調整。保存されます。
+      </div>
+
+      {/* New arrivals editor */}
+      <div style={{ paddingTop: 14, marginTop: 14, borderTop: '1px solid #3A332A' }}>
+        <TweakLabel>新商品（ホームに表示）</TweakLabel>
+        {(() => {
+          const arrivals = tweaks.newArrivals || [];
+          const setArrivals = (next) => setTweaks({ ...tweaks, newArrivals: next });
+          const toggle = (id) => {
+            if (arrivals.includes(id)) setArrivals(arrivals.filter(x => x !== id));
+            else setArrivals([...arrivals, id]);
+          };
+          const move = (id, dir) => {
+            const idx = arrivals.indexOf(id);
+            if (idx < 0) return;
+            const target = idx + dir;
+            if (target < 0 || target >= arrivals.length) return;
+            const next = [...arrivals];
+            [next[idx], next[target]] = [next[target], next[idx]];
+            setArrivals(next);
+          };
+
+          return (
+            <>
+              <div style={{ fontSize: 10, color: '#A89F94', marginBottom: 8, lineHeight: 1.5 }}>
+                表示順: 上から順にホームのカルーセルへ
+              </div>
+
+              {/* Selected list, ordered */}
+              {arrivals.length > 0 ? (
+                <div style={{ marginBottom: 10, background: '#2A241C', border: '1px solid #3A332A', borderRadius: 4, overflow: 'hidden' }}>
+                  {arrivals.map((id, i) => {
+                    const prod = products.find(p => p.id === id);
+                    if (!prod) return null;
+                    return (
+                      <div key={id} style={{
+                        display: 'flex', alignItems: 'center', gap: 6,
+                        padding: '6px 8px', fontSize: 11,
+                        borderBottom: i < arrivals.length - 1 ? '1px solid #3A332A' : 'none',
+                      }}>
+                        <div style={{
+                          fontSize: 10, fontFamily: 'ui-monospace, monospace',
+                          color: '#F5F0E6', width: 18, flexShrink: 0,
+                        }}>{String(i+1).padStart(2, '0')}</div>
+                        <div style={{ flex: 1, minWidth: 0, overflow: 'hidden',
+                          textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {prod.name}
+                        </div>
+                        <button onClick={() => move(id, -1)} disabled={i === 0} style={{
+                          width: 22, height: 22, padding: 0,
+                          background: 'transparent',
+                          color: i === 0 ? '#3A332A' : '#F5F0E6',
+                          border: '1px solid ' + (i === 0 ? '#3A332A' : '#4A4238'),
+                          borderRadius: 3, cursor: i === 0 ? 'default' : 'pointer',
+                          fontFamily: 'inherit', fontSize: 11,
+                        }}>↑</button>
+                        <button onClick={() => move(id, 1)} disabled={i === arrivals.length - 1} style={{
+                          width: 22, height: 22, padding: 0,
+                          background: 'transparent',
+                          color: i === arrivals.length - 1 ? '#3A332A' : '#F5F0E6',
+                          border: '1px solid ' + (i === arrivals.length - 1 ? '#3A332A' : '#4A4238'),
+                          borderRadius: 3, cursor: i === arrivals.length - 1 ? 'default' : 'pointer',
+                          fontFamily: 'inherit', fontSize: 11,
+                        }}>↓</button>
+                        <button onClick={() => toggle(id)} style={{
+                          width: 22, height: 22, padding: 0,
+                          background: 'transparent', color: '#C99',
+                          border: '1px solid #4A3838', borderRadius: 3, cursor: 'pointer',
+                          fontFamily: 'inherit', fontSize: 11,
+                        }}>×</button>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div style={{ fontSize: 10, color: '#A89F94', marginBottom: 10, padding: '8px', background: '#2A241C', borderRadius: 4, textAlign: 'center' }}>
+                  新商品未設定
+                </div>
+              )}
+
+              {/* Add from catalog */}
+              <details style={{ marginBottom: 4 }}>
+                <summary style={{ fontSize: 10, color: '#F5F0E6', cursor: 'pointer', padding: '4px 0', userSelect: 'none' }}>
+                  + 商品を追加する
+                </summary>
+                <div style={{ maxHeight: 180, overflowY: 'auto', marginTop: 6,
+                  background: '#2A241C', border: '1px solid #3A332A', borderRadius: 4 }}>
+                  {products.map(p => {
+                    const on = arrivals.includes(p.id);
+                    return (
+                      <button key={p.id} onClick={() => toggle(p.id)} style={{
+                        display: 'flex', alignItems: 'center', gap: 8,
+                        width: '100%', padding: '5px 8px', fontSize: 11,
+                        background: on ? '#3A332A' : 'transparent',
+                        color: '#F5F0E6', border: 'none',
+                        borderBottom: '1px solid #3A332A',
+                        cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
+                      }}>
+                        <span style={{ fontSize: 11, width: 12 }}>{on ? '✓' : ''}</span>
+                        <span style={{ flex: 1, minWidth: 0, overflow: 'hidden',
+                          textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </details>
+            </>
+          );
+        })()}
+      </div>
+
+      {/* Column editor section */}
+      <div style={{ paddingTop: 14, marginTop: 14, borderTop: '1px solid #3A332A' }}>
+        <TweakLabel>キャラクターコラム</TweakLabel>
+        {(() => {
+          const columns = tweaks.columns || {};
+          // Target options: all products + column pages
+          const pageTargets = [
+            { id: '__about',   name: '◆ 877の商品について' },
+            { id: '__tshirt',  name: '◆ Tシャツについて' },
+            { id: '__tenugui', name: '◆ 手ぬぐいについて' },
+          ];
+          // Auto-select target based on current view
+          const autoTarget = view === 'about' ? '__about'
+            : view === 'column-tshirt' ? '__tshirt'
+            : view === 'column-tenugui' ? '__tenugui'
+            : editingId;
+          const targetId = colTarget || autoTarget;
+          const current = columns[targetId] || { character: 'gamaoji', text: '' };
+          const updateCol = (next) => {
+            const merged = { ...columns, [targetId]: { ...current, ...next } };
+            setTweaks({ ...tweaks, columns: merged });
+          };
+          const clearCol = () => {
+            const merged = { ...columns };
+            delete merged[targetId];
+            setTweaks({ ...tweaks, columns: merged });
+          };
+          const jumpToTarget = () => {
+            if (targetId === '__about') setView('about');
+            else if (targetId === '__tshirt') setView('column-tshirt');
+            else if (targetId === '__tenugui') setView('column-tenugui');
+            else { setSelectedId(targetId); setView('detail'); }
+          };
+          const CHARS = [
+            { id: 'gamaoji',  name: 'がまおじ' },
+            { id: 'kaechan',  name: 'カエちゃん' },
+            { id: 'yamadori', name: 'ヤマドリ先輩' },
+            { id: 'kukio',    name: 'クキオ' },
+          ];
+          return (
+            <>
+              <select
+                value={targetId || ''}
+                onChange={e => setColTarget(e.target.value)}
+                style={{
+                  width: '100%', padding: '7px 8px', fontSize: 12,
+                  background: '#2A241C', color: '#F5F0E6',
+                  border: '1px solid #3A332A', borderRadius: 4,
+                  fontFamily: 'inherit', marginBottom: 10, cursor: 'pointer',
+                }}
+              >
+                <optgroup label="コラムページ">
+                  {pageTargets.map(t => (
+                    <option key={t.id} value={t.id}>
+                      {columns[t.id]?.text ? '●' : '○'} {t.name}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="商品">
+                  {products.map(p => (
+                    <option key={p.id} value={p.id}>
+                      {columns[p.id]?.text ? '●' : '○'} {p.name}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+              <TweakLabel>キャラクター</TweakLabel>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 10 }}>
+                {CHARS.map(c => (
+                  <button key={c.id}
+                    onClick={() => updateCol({ character: c.id })}
+                    style={{
+                      padding: '6px 8px', fontSize: 11,
+                      background: current.character === c.id ? '#F5F0E6' : 'transparent',
+                      color: current.character === c.id ? '#1F1B16' : '#F5F0E6',
+                      border: '1px solid ' + (current.character === c.id ? '#F5F0E6' : '#3A332A'),
+                      borderRadius: 4, cursor: 'pointer', fontFamily: 'inherit',
+                    }}>
+                    {c.name}
+                  </button>
+                ))}
+              </div>
+              <TweakLabel>セリフ</TweakLabel>
+              <textarea
+                value={current.text}
+                onChange={e => updateCol({ text: e.target.value })}
+                placeholder="ひとこと…（空欄だと非表示）"
+                rows={4}
+                style={{
+                  width: '100%', padding: '8px 10px', fontSize: 12,
+                  background: '#2A241C', color: '#F5F0E6',
+                  border: '1px solid #3A332A', borderRadius: 4,
+                  fontFamily: 'inherit', lineHeight: 1.6, resize: 'vertical',
+                  boxSizing: 'border-box', marginBottom: 8,
+                }}
+              />
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button onClick={jumpToTarget} style={{
+                  flex: 1, padding: '6px 8px', fontSize: 10,
+                  background: 'transparent', color: '#F5F0E6',
+                  border: '1px solid #F5F0E6', borderRadius: 4, cursor: 'pointer',
+                  fontFamily: 'inherit',
+                }}>ページを開く</button>
+                <button onClick={clearCol} style={{
+                  flex: 1, padding: '6px 8px', fontSize: 10,
+                  background: 'transparent', color: '#F5F0E6',
+                  border: '1px solid #3A332A', borderRadius: 4, cursor: 'pointer',
+                  fontFamily: 'inherit',
+                }}>このコラム削除</button>
+              </div>
+            </>
+          );
+        })()}
+      </div>
+    </div>
+  );
+}
+
+function TweakLabel({ children }) {
+  return (
+    <div style={{ fontSize: 9, color: '#A89F94', letterSpacing: 2,
+      fontFamily: 'JetBrains Mono, monospace', marginBottom: 5, textTransform: 'uppercase' }}>
+      {children}
+    </div>
+  );
+}
+
+const ACCENTS = {
+  purple: { main: '#6B5B9E', deep: '#4A3D7A', tint: '#EFEAF5' },
+  forest: { main: '#4A6B4F', deep: '#2F4A33', tint: '#E6EDE7' },
+  terracotta: { main: '#B8623F', deep: '#8A4527', tint: '#F4E5DD' },
+};
+window.ACCENTS = ACCENTS;
+
+function App() {
+  const [view, setView] = useState(() => localStorage.getItem('877-view') || 'home');
+  const [selectedId, setSelectedId] = useState(() => localStorage.getItem('877-sel') || '877stand-tshirt');
+  const [category, setCategory] = useState('all');
+  const [search, setSearch] = useState('');
+  const [faves, setFaves] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('877-faves') || '[]'); } catch { return []; }
+  });
+  const [tweaks, setTweaks] = useState(window.TWEAK_DEFAULTS || { layout: 'card', accent: 'purple', density: 'cozy' });
+  const [tweaksOpen, setTweaksOpen] = useState(false);
+
+  useEffect(() => { localStorage.setItem('877-view', view); }, [view]);
+  useEffect(() => { localStorage.setItem('877-sel', selectedId); }, [selectedId]);
+  useEffect(() => { localStorage.setItem('877-faves', JSON.stringify(faves)); }, [faves]);
+
+  // Expose for related links
+  window.__setSelId = setSelectedId;
+
+  const toggleFave = (id) => setFaves(f => f.includes(id) ? f.filter(x => x !== id) : [...f, id]);
+  const accent = window.ACCENTS[tweaks.accent] || window.ACCENTS.purple;
+
+  // Edit mode wiring
+  useEffect(() => {
+    const onMsg = (e) => {
+      if (!e.data) return;
+      if (e.data.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const updateTweaks = (next) => {
+    setTweaks(next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: next }, '*');
+  };
+
+  // Sync image positions to global so StagedImg can read them
+  useEffect(() => {
+    window.__imgPositions = tweaks.imagePositions || {};
+    window.dispatchEvent(new Event('__imgPosChanged'));
+  }, [tweaks.imagePositions]);
+
+  // Compute iOS frame scale
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const recalc = () => {
+      const maxH = window.innerHeight - 40;
+      const maxW = window.innerWidth - 40;
+      const s = Math.min(maxH / 874, maxW / 402, 1);
+      setScale(s);
+    };
+    recalc();
+    window.addEventListener('resize', recalc);
+    return () => window.removeEventListener('resize', recalc);
+  }, []);
+
+  return (
+    <>
+      <div style={{ transform: `scale(${scale})`, transformOrigin: 'center' }}>
+        {React.createElement(window.IOSDevice, { width: 402, height: 874 },
+          <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', inset: 0, overflowY: 'auto', overflowX: 'hidden' }}>
+              {view === 'home' && React.createElement(window.HomeScreen, {
+                setView, setSelectedId, accent, category, setCategory, search, setSearch, tweaks,
+              })}
+              {view === 'detail' && React.createElement(window.DetailScreen, {
+                id: selectedId, setView, accent, faves, toggleFave, tweaks,
+              })}
+              {view === 'faves' && React.createElement(window.FavesScreen, {
+                faves, toggleFave, setView, setSelectedId, accent,
+              })}
+              {view === 'about' && React.createElement(window.AboutScreen, {
+                setView, accent, tweaks,
+              })}
+              {view === 'column-tshirt' && React.createElement(window.ColumnPageScreen, {
+                setView, accent, tweaks, pageId: '__tshirt',
+              })}
+              {view === 'column-tenugui' && React.createElement(window.ColumnPageScreen, {
+                setView, accent, tweaks, pageId: '__tenugui',
+              })}
+            </div>
+            <TabBar view={view} setView={setView} accent={accent} />
+          </div>
+        )}
+      </div>
+      {tweaksOpen && <TweaksPanel tweaks={tweaks} setTweaks={updateTweaks} view={view} selectedId={selectedId} setSelectedId={setSelectedId} setView={setView} />}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
