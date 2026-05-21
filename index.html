@@ -15,18 +15,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  html, body { margin: 0; padding: 0; background: #2A2620; overflow: hidden; height: 100vh; }
+  html, body { margin: 0; padding: 0; background: #F5F0E6; overflow: auto; height: 100vh; }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body { font-family: "Noto Sans JP", "Hiragino Sans", sans-serif; }
-  #root { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(circle at 50% 30%, #3A332A 0%, #2A2620 80%); }
-  /* Mobile: no dark frame; full-bleed magazine */
-  @media (max-width: 700px) {
-    html, body { background: #F5F0E6; overflow: auto; }
-    #root { background: #F5F0E6; display: block; height: auto; min-height: 100vh;
-      --top-pad: max(env(safe-area-inset-top, 0px), 8px);
-      --bot-pad: max(env(safe-area-inset-bottom, 0px), 8px);
-    }
+  #root { background: #F5F0E6; display: block; height: auto; min-height: 100vh;
+    --top-pad: max(env(safe-area-inset-top, 0px), 8px);
+    --bot-pad: env(safe-area-inset-bottom, 0px);
+  }
+  /* On wide screens center the magazine column for readability */
+  @media (min-width: 700px) {
+    #root > div > div { max-width: 540px; margin: 0 auto; }
   }
   button { font-family: inherit; }
   h1, h2, h3 { font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif; }
@@ -2377,7 +2375,7 @@ function TabBar({ view, setView, accent }) {
       backdropFilter: 'blur(20px) saturate(180%)',
       WebkitBackdropFilter: 'blur(20px) saturate(180%)',
       borderTop: '1px solid #1F1B16',
-      paddingBottom: 'var(--bot-pad, 24px)', paddingTop: 6,
+      padding: '5px 30px calc(5px + var(--bot-pad, 0px)) 20px',
       display: 'flex', justifyContent: 'space-around',
     }}>
       {tabs.map(t => {
@@ -2832,7 +2830,7 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const recalc = () => {
-      const mob = window.innerWidth < 700;
+      const mob = window.innerWidth < 1100;
       setIsMobile(mob);
       if (mob) {
         setScale(1);
@@ -2884,15 +2882,9 @@ function App() {
 
   return (
     <>
-      {isMobile ? (
-        <div style={{ position: 'fixed', inset: 0, background: '#F5F0E6' }}>
-          {innerContent}
-        </div>
-      ) : (
-        <div style={{ transform: `scale(${scale})`, transformOrigin: 'center' }}>
-          {React.createElement(window.IOSDevice, { width: 402, height: 874 }, innerContent)}
-        </div>
-      )}
+      <div style={{ position: 'fixed', inset: 0, background: '#F5F0E6' }}>
+        {innerContent}
+      </div>
       {tweaksOpen && !isMobile && <TweaksPanel tweaks={tweaks} setTweaks={updateTweaks} view={view} selectedId={selectedId} setSelectedId={setSelectedId} setView={setView} />}
     </>
   );
